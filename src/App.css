@@ -1,0 +1,61 @@
+.App {
+  text-align: center;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-button {
+}
+::-webkit-scrollbar-thumb {
+  background: #5F7470;
+  border: 0px none #ffffff;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.171);
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+body{
+  overflow-y: hidden;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  display: flex;
+  
+}
+
+.fadeIn{
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
