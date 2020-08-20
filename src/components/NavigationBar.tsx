@@ -30,11 +30,12 @@ const NavigationBarWrapper = styled.div`
     background-color: inherit;
     position: sticky;
     top: 0px;
-    height: 40px;
+    height: 45px;
     padding: 5px 0;
     background-color: white;
     width: 100%;
     box-shadow: 0px 3px 12px 0px rgba(0,0,0,0.75);
+    z-index: 2; 
 `;
 
 const NavigationLink = styled.a`

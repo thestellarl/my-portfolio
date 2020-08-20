@@ -18,8 +18,9 @@ export const Paper = ({children, color}: IPaperProps) => {
 const PaperWrapper = styled.div`
     background-color: white;
     border-radius: 6px;
+    border: 1px solid #000000;
     color: ${({ color }) => color};
-    box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0 5px 5px 0 rgba(233, 240, 243, 0.5), 0 0 0 1px #E6ECF8;
     padding: 10px;
     margin: 10px;
     `;

@@ -5,9 +5,10 @@ import styled, { ThemeProvider } from 'styled-components';
 import { NavigationBar } from './components/NavigationBar';
 
 import DownArrow from './down_arrow.svg'
-import { FloaterBackground } from './components/StyledCanvas';
+import { FloaterBackground } from './components/Boids';
 import { Paper } from './components/Paper';
 import { Carousel } from './components/Carousel';
+import { ViewportProvider, useViewport } from './utilities/window-resize';
 
 // const getScrollPosition = (element: React.RefObject<HTMLDivElement>) => {
 //   const target = element.current;
@@ -48,11 +49,12 @@ function App() {
   
 
   return (
-    <div className="App" ref={appRef} style={{ }}>
+    <ViewportProvider>
+      <div className="App" ref={appRef}>
       <ThemeProvider theme={colorTheme}>
         <NavigationBar navLinks={navigationMap}/>
-        <FloaterBackground />
-        <PageSection id={'home'} color={'#ffecd1'} >
+        <PageSection id={'home'} color={'#ffffff'} >
+          <FloaterBackground />
           <div style={{textShadow: '0 2px 5px rgba(33,33,33,.5)'}}>
             <h1 style={{fontSize: '6em'}}>
               Hey there I'm Lucas!
@@ -61,7 +63,7 @@ function App() {
               I am a <b>software developer</b>, <b>avid tinkerer</b> and a <b>dedicated problem solver</b>.
             </SubTitle>
             <SubTitle>
-              Scroll down to learn more about me!
+              Scroll to learn more about me!
             </SubTitle>
           </div>
         </PageSection>
@@ -94,7 +96,8 @@ function App() {
           </h2>
         </PageSection>        
       </ThemeProvider>
-    </div>
+      </div>
+    </ViewportProvider>
   );
 }
 
@@ -103,7 +106,7 @@ export default App;
 export const colorTheme = {
   primaryColor: '#5F7470',
   secondaryColor: '#889696',
-  background: '#335C67',
+  background: '#ffffff',
   headerColor: '#335C67',
 }
 
@@ -126,13 +129,17 @@ const SubTitle = styled.p`
 
 interface PageSectionProps{
   color?: string;
+  backgroundColor?: string;
 }
 
 const PageSection = styled.section<PageSectionProps>`
+  position: relative;
+  background-color: ${({ theme }) => theme.background};
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  color: ${({color}) => color || 'white'};
+  overflow-x: hidden;
+  color: ${({color}) => color || '#000000'};
 `;
