@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './fonts/BeVietnam-Regular.ttf';
+import './fonts/BeVietnam-Thin.ttf';
 
 ReactDOM.render(
   <React.StrictMode>
