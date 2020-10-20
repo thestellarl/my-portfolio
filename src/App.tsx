@@ -167,7 +167,7 @@ function App() {
             <h1>Check out my <CustomLink target='_blank' href='https://github.com/thestellarl'>GitHub</CustomLink> for more</h1>
           </PageSection>
 
-          <PageSection height='25vh' color='white'>
+          <PageSection height='40vh' color='white'>
             <h1>Think I'd be a good fit for your team? Reach out!</h1>
             <Button href='mailto:stellal@oregonstate.edu'>Contact Me!</Button>
           </PageSection>
@@ -217,16 +217,6 @@ const ContainerItem = styled.div`
              -9px -9px 18px #30b5a4;
 `;
 
-
-const grow = keyframes`
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(3);
-  }
-`;
-
 const ListContainer = styled.ul`
   display: flex;
   list-style: none;
@@ -250,8 +240,9 @@ const BackgroundDiv = styled.div<{ backgroundColor: string }>`
   border-radius: 16px;
   z-index: -1;
   left: 0;
-  // background-color: ${( backgroundColor ) => backgroundColor};
-  ${( backgroundColor ) => backgroundColor};
+  background: #2A9D8F;
+  box-shadow:  20px 20px 60px #24857a, 
+             -20px -20px 60px #30b5a4;
   color: white;
 `;
 
