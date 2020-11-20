@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { useViewport } from '../../utilities/window-resize';
 import { BoidsOptions } from './boidsOptions';
 import { boid, BoidSettings } from './interfaces';
-import { alignBoids } from './utilities';
+import { alignBoids, normalize } from './utilities';
 
 export const FloaterBackground = () => {
     const initialSettings: BoidSettings = {
       sightDropOff: 50,
+      showVision: false,
     }
-  
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
     const [settings, updateSettings] = React.useState(initialSettings); 
@@ -41,14 +41,19 @@ export const FloaterBackground = () => {
       
       window.requestAnimationFrame(draw);
     }, [context, height, width]);
-    
+
     const draw = (timestamp: number) => {
       if (animationStart === undefined)
         animationStart = timestamp;
       const elapsed = timestamp - animationStart;
   
-      for(let i = objectData.length; i < 80; i++){
-          objectData.push({x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, angle: Math.random() * 2 * Math.PI, speed: 2, size: 4});
+      for(let i = objectData.length; i < 120; i++){
+        objectData.push({ 
+          position:{x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight}, 
+          velocity: {dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1}, 
+          max_speed: 1, 
+          orientation: Math.random() * 2 * Math.PI, 
+          size: 4})
       }
 
       if (context){
@@ -61,13 +66,14 @@ export const FloaterBackground = () => {
             //   obj.angle -= 0.01
             // if (sensor.y > window.innerHeight || sensor.y < 0)
             //   obj.angle -= 0.01
-
+            let localAvg = {x: obj.position.x, y: obj.position.y};
+            let num_local = 1;
             objectData.map((otherBoid) => {
-              const objToOther = {dx: otherBoid.x - obj.x , dy: otherBoid.y - obj.y};
-              const dist = Math.pow(objToOther.dx, 2) / 1000 + Math.pow(objToOther.dy, 2) / 1000;
+              const objToOther = {dx: otherBoid.position.x - obj.position.x , dy: otherBoid.position.y - obj.position.y};
+              const dist = Math.sqrt(Math.pow(objToOther.dx, 2) + Math.pow(objToOther.dy, 2));
                   
               // console.log(dist);
-              const angleOffset = Math.acos((Math.cos(obj.angle) * objToOther.dx + Math.sin(obj.angle) * objToOther.dy) / Math.sqrt( Math.pow(objToOther.dx, 2) + Math.pow(objToOther.dy, 2)));
+              // const angleOffset = Math.acos((Math.cos(obj.angle) * objToOther.dx + Math.sin(obj.angle) * objToOther.dy) / Math.sqrt( Math.pow(objToOther.dx, 2) + Math.pow(objToOther.dy, 2)));
               
               // Vision Radius 
               // context.beginPath();
@@ -79,7 +85,7 @@ export const FloaterBackground = () => {
               // context.stroke();
               // context.closePath();
               // context.beginPath();
-              // context.arc(obj.x, obj.y, 200, obj.angle - Math.PI / 3 * 2, obj.angle + Math.PI / 3 * 2);
+              // context.arc(obj.position.x, obj.position.y, 200, Math.PI * 2, 0);
               // context.stroke();
               // context.closePath();
 
@@ -87,23 +93,52 @@ export const FloaterBackground = () => {
               // if(dist < 200 ){
               
               //Movement
-              if(dist < 200 && Math.abs(angleOffset) < Math.PI / 3){
-                obj.angle += -(Math.min(obj.angle - otherBoid.angle, otherBoid.angle - obj.angle - Math.PI * 2 )) * sigmoid(dist/100) * obj.speed * 0.001;
-                obj.angle += alignBoids(obj, otherBoid) * sigmoid(dist/100) * obj.speed * 0.001;
-                let outer = otherBoid.angle - obj.angle;
-                let inner = otherBoid.angle - (obj.angle - 2 * Math.PI);
-                
-                obj.angle += (Math.abs(outer) < Math.abs(inner) ? outer : inner) * sigmoid(dist/50) * obj.speed * 0.5;
+              if(dist < 120){
+                let repulsive_force = normalize({x: otherBoid.position.x - obj.position.x, y: otherBoid.position.y - obj.position.y}) ;
+                obj.velocity.dx += repulsive_force.x / 20;
+                obj.velocity.dy += repulsive_force.y / 20;
+                //cohesion average
+                num_local++;
+                localAvg.x += otherBoid.position.x;
+                localAvg.y += otherBoid.position.y;
+                //obj.angle += (Math.abs(outer) < Math.abs(inner) ? outer : inner) * sigmoid(dist/50) * obj.speed * 0.5;
               }
+
               })
-              
-              obj.x += obj.speed * Math.cos(obj.angle);
-              obj.y += obj.speed * Math.sin(obj.angle);
+
 
               context.beginPath();
-              context.arc(obj.x, obj.y, obj.size, 0, 2 * Math.PI);
+              context.moveTo(obj.position.x, obj.position.y);
+              context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
+              context.strokeStyle = 'white';
+              context.stroke();
+              context.closePath();
+              
+              //Apply Cohesion
+              let c = normalize({x: obj.position.x - (localAvg.x / num_local), y: obj.position.y - (localAvg.y / num_local)})
+              obj.velocity.dx += c.x / 10;
+              obj.velocity.dy += c.y / 10;
+              
+              let g = normalize({x: obj.velocity.dx, y: obj.velocity.dy});
+              obj.velocity.dx = g.x;
+              obj.velocity.dy = g.y;
+              obj.position.x += -obj.velocity.dx;
+              obj.position.y += -obj.velocity.dy;
+
+              context.beginPath();
+              context.arc(obj.position.x, obj.position.y, obj.size, 0, 2 * Math.PI);
               context.fill();
               context.closePath();
+
+              if(settings.showVision){
+                context.beginPath();
+                context.save();
+                context.arc(obj.position.x, obj.position.y, 120, 0, 2 * Math.PI);
+                context!.fillStyle = "#ffffff08";
+                context.fill();
+                context.restore();
+                context.closePath();
+              }
 
               context.save();
               // context.beginPath();
@@ -114,7 +149,7 @@ export const FloaterBackground = () => {
               // context.closePath();
 
               context.restore();
-              return !(Math.abs(obj.x - window.innerWidth / 2) > window.innerWidth/2 || Math.abs(obj.y - window.innerHeight / 2) > window.innerHeight/2)
+              return !(Math.abs(obj.position.x - window.innerWidth / 2) > window.innerWidth/2 || Math.abs(obj.position.y - window.innerHeight / 2) > window.innerHeight/2)
           });
           context.restore();
       }
