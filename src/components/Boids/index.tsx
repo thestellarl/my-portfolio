@@ -13,7 +13,7 @@ export const FloaterBackground = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
     const [settings, updateSettings] = React.useState(initialSettings); 
-    
+    const floaterColor = [Math.random() * 255, Math.random() * 255, Math.random() * 255];
     useEffect(() => {
       console.log(settings);
     }, [settings]);
@@ -47,7 +47,7 @@ export const FloaterBackground = () => {
         animationStart = timestamp;
       const elapsed = timestamp - animationStart;
   
-      for(let i = objectData.length; i < 120; i++){
+      for(let i = objectData.length; i < 20; i++){
         objectData.push({ 
           position:{x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight}, 
           velocity: {dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1}, 
@@ -59,7 +59,7 @@ export const FloaterBackground = () => {
       if (context){
           context.clearRect(0, 0, window.innerWidth, window.innerHeight);
           context.save();
-          context!.fillStyle = "#2a9d8f";
+          context!.fillStyle = `rgba(${floaterColor[0]},${floaterColor[1]},${floaterColor[2]},1)`;
           objectData = objectData.filter((obj) => {                
             // const sensor = {x: obj.x + Math.cos(obj.angle) * obj.speed * 50, y: obj.y + Math.sin(obj.angle) * obj.speed * 100}
             // if (sensor.x > window.innerWidth || sensor.x < 0 )
@@ -106,7 +106,6 @@ export const FloaterBackground = () => {
 
               })
 
-
               context.beginPath();
               context.moveTo(obj.position.x, obj.position.y);
               context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
@@ -116,8 +115,8 @@ export const FloaterBackground = () => {
               
               //Apply Cohesion
               let c = normalize({x: obj.position.x - (localAvg.x / num_local), y: obj.position.y - (localAvg.y / num_local)})
-              obj.velocity.dx += c.x / 10;
-              obj.velocity.dy += c.y / 10;
+              obj.velocity.dx += c.x / 8;
+              obj.velocity.dy += c.y / 8;
               
               let g = normalize({x: obj.velocity.dx, y: obj.velocity.dy});
               obj.velocity.dx = g.x;
@@ -163,7 +162,11 @@ export const FloaterBackground = () => {
         id="canvas"
         ref={canvasRef}
         width={window.innerWidth}
-        height={window.innerHeight}/>
+        height={window.innerHeight}
+        r={floaterColor[0]}
+        g={floaterColor[1]}
+        b={floaterColor[2]}
+        />
       </>
     );
 }
@@ -172,11 +175,11 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const StyledCanvas = styled.canvas`
+const StyledCanvas = styled.canvas<{r: number, g: number, b: number}>`
   position: absolute;
   left: 0;
   top: 0;
   z-index: -1;
   background-color: rgb(38,70,83); 
-  background: linear-gradient(336deg, rgba(38,70,83,1) 0%, rgba(42,157,143,1) 100%);
+  background: linear-gradient(336deg, rgba(${({r}) => r},${({g}) => g}, ${({b}) => b},1) 0%, rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1) 100%);
 `;
