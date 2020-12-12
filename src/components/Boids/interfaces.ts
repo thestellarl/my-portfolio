@@ -11,4 +11,5 @@ export interface boid {
 export interface BoidSettings {
     sightDropOff: number;
     showVision: boolean;
+    showCohesionVector: boolean;
 };

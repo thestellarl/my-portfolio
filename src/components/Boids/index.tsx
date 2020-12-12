@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useViewport } from '../../utilities/window-resize';
 import { BoidsOptions } from './boidsOptions';
@@ -9,6 +9,7 @@ export const FloaterBackground = () => {
     const initialSettings: BoidSettings = {
       sightDropOff: 50,
       showVision: false,
+      showCohesionVector: false,
     }
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
@@ -17,7 +18,6 @@ export const FloaterBackground = () => {
     useEffect(() => {
       console.log(settings);
     }, [settings]);
-
 
     let animationStart: number | undefined;
 
@@ -40,22 +40,24 @@ export const FloaterBackground = () => {
       }
       
       window.requestAnimationFrame(draw);
+      console.log(draw);
     }, [context, height, width]);
 
-    const draw = (timestamp: number) => {
+    for(let i = objectData.length; i < 20; i++){
+      objectData.push({ 
+        position:{x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight}, 
+        velocity: {dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1}, 
+        max_speed: 1, 
+        orientation: Math.random() * 2 * Math.PI, 
+        size: 4})
+    }
+
+    const draw = useCallback((timestamp: number) => {
       if (animationStart === undefined)
         animationStart = timestamp;
       const elapsed = timestamp - animationStart;
-  
-      for(let i = objectData.length; i < 20; i++){
-        objectData.push({ 
-          position:{x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight}, 
-          velocity: {dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1}, 
-          max_speed: 1, 
-          orientation: Math.random() * 2 * Math.PI, 
-          size: 4})
-      }
-
+      console.log(settings.showCohesionVector);
+      
       if (context){
           context.clearRect(0, 0, window.innerWidth, window.innerHeight);
           context.save();
@@ -105,13 +107,14 @@ export const FloaterBackground = () => {
               }
 
               })
-
-              context.beginPath();
-              context.moveTo(obj.position.x, obj.position.y);
-              context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
-              context.strokeStyle = 'white';
-              context.stroke();
-              context.closePath();
+              if(settings.showCohesionVector){
+                context.beginPath();
+                context.moveTo(obj.position.x, obj.position.y);
+                context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
+                context.strokeStyle = 'white';
+                context.stroke();
+                context.closePath();
+              }
               
               //Apply Cohesion
               let c = normalize({x: obj.position.x - (localAvg.x / num_local), y: obj.position.y - (localAvg.y / num_local)})
@@ -153,7 +156,7 @@ export const FloaterBackground = () => {
           context.restore();
       }
       window.requestAnimationFrame(draw);
-    }
+    }, [settings.showCohesionVector, context])
 
     return(
       <>
@@ -163,9 +166,7 @@ export const FloaterBackground = () => {
         ref={canvasRef}
         width={window.innerWidth}
         height={window.innerHeight}
-        r={floaterColor[0]}
-        g={floaterColor[1]}
-        b={floaterColor[2]}
+        gradientColor={{r: floaterColor[0], b: floaterColor[1], g: floaterColor[2]}}
         />
       </>
     );
@@ -175,11 +176,11 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const StyledCanvas = styled.canvas<{r: number, g: number, b: number}>`
+const StyledCanvas = styled.canvas<{gradientColor: {r: number, g: number, b: number}}>`
   position: absolute;
   left: 0;
   top: 0;
   z-index: -1;
   background-color: rgb(38,70,83); 
-  background: linear-gradient(336deg, rgba(${({r}) => r},${({g}) => g}, ${({b}) => b},1) 0%, rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1) 100%);
+  background: linear-gradient(336deg, rgba(${({gradientColor}) => gradientColor.r},${({gradientColor}) => gradientColor.g}, ${({gradientColor}) => gradientColor.b},1) 0%, rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1) 100%);
 `;

@@ -23,6 +23,7 @@ export const BoidsOptions = ({ settings, onChange }: IBoidsOptionsProps) => {
                 <li>Alignment</li>
                 <li>Vision Range <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/> {settings.sightDropOff}</li>
                 <li>Show Vision <input type="checkbox" value={"Vision"} onInput={(e) => onChange({ ...settings, showVision: e.currentTarget.checked}) }/> </li>
+                <li>Show Cohesion <input type="checkbox" value={"Vision"} onInput={(e) => onChange({ ...settings, showCohesionVector: e.currentTarget.checked}) }/> </li>
                 {/* <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li>
                 <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li> */}
             </OptionsWrapper>
