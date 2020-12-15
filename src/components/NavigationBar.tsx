@@ -87,11 +87,13 @@ const NavigationBarWrapper = styled.div<{scrollPosition: number}>`
     height: 100vh;
     padding: 0 10px;
     z-index: 2;
+    color: black;
 `;
 
 const NavigationLink = styled.a`
     cursor: pointer;
     text-decoration: none;
     padding: 0 10px;
-    color: white;
+    font-weight: 900;
+    color: inherit;
 `;

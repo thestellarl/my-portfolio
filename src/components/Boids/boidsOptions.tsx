@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useViewport } from '../../utilities/window-resize';
 import { BoidSettings } from './interfaces';
@@ -10,7 +10,7 @@ interface IBoidsOptionsProps {
 
 export const BoidsOptions = ({ settings, onChange }: IBoidsOptionsProps) => {
     const [isVisible, setVisible ] = useState(false);
-
+    
     return(
         <Wrapper>
             <ArrowWrapper onClick={() => setVisible(!isVisible)}>
