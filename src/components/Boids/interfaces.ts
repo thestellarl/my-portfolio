@@ -9,7 +9,13 @@ export interface boid {
 };
 
 export interface BoidSettings {
+    cohesionFactor: number;
+    showCohesion: boolean;
+    seperationFactor: number;
+    showSeperation: boolean;
+    alignmentFactor: number;
+    showAlignment: boolean;
+    
     sightDropOff: number;
     showVision: boolean;
-    showCohesionVector: boolean;
 };

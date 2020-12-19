@@ -16,9 +16,59 @@ import { GithubIcon } from './icons/GithubIcon';
 import { ImageItem } from './components/ImageItem';
 import { Button } from './components/Button';
 import { ScrollController } from './components/ScrollController';
+import PageSection from './components/PageSection';
+import CustomLink from './components/StyledLink';
+import ProfileCard from './components/Cards/Intro';
+import ExperienceCard from './components/Cards/Experience';
+
+function getScrollPosition( element?: React.RefObject<HTMLDivElement>) {
+  const target = element ? element.current : document.body;
+
+  return target ? target.scrollTop : 0;
+}
+
+export function useScrollPosition(effect: any, deps: any[], element: React.RefObject<HTMLDivElement>, wait: number) {
+  const position = useRef(getScrollPosition(element));
+  let throttleTimeout: any = null;
+
+  const callBack = () => {
+    const currPos = getScrollPosition(element);
+    effect(currPos);
+    position.current = currPos;
+    throttleTimeout = null;
+  }
+
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      if (wait) {
+        if (throttleTimeout === null) {
+          throttleTimeout = setTimeout(callBack, wait);
+        }
+      } else {
+        callBack();
+      }
+    }
+    element.current!.addEventListener('scroll', handleScroll)
+
+    return () => element.current!.removeEventListener('scroll', handleScroll)
+  }, deps)
+}
 
 function App() {
+  // const scrollPosition = React.useRef(0);
+  const [scrollPosition, setScrollPosition] = React.useState(0);
   const appRef = React.useRef<HTMLDivElement>(null);
+
+  // useScrollPosition((currPos: number) => {
+  //     scrollPosition.current = currPos;
+  // }, [scrollPosition.current], appRef, 100);
+  useScrollPosition((currPos: number) => {
+    setScrollPosition(currPos);
+  }, [scrollPosition], appRef, 100);
+
+  // useEffect(() => {
+  //   console.log(scrollPosition.current);
+  // }, [scrollPosition.current]);
 
   const navigationMap = {
     Home: '/#home',
@@ -31,21 +81,20 @@ function App() {
   return (
     <ViewportProvider>
         <div className="App" ref={appRef}>
-        {/* <ScrollController appRef={appRef}/> */}
         <ThemeProvider theme={colorTheme}>
-          <NavigationBar scrollPosition={0} closed={false} navLinks={navigationMap}>
+          <NavigationBar scrollPosition={scrollPosition} closed={false} navLinks={navigationMap}>
             <a target='_blank' href='https://www.linkedin.com/in/lucas-stella-28700615a/'>
-              <LinkedInIcon primaryColor={'#000000'}/>
+              <LinkedInIcon />
             </a>
             <a target='_blank' href='https://github.com/thestellarl'>
-              <GithubIcon primaryColor={'#000000'}/>
+              <GithubIcon />
             </a>
           </NavigationBar>
 
           <PageSection id='home' color='#ffffff' height='100vh' >
             <FloaterBackground />
             <GreetingWrapper style={{pointerEvents: "none"}}>
-              <h1 style={{fontSize: '4em'}}>
+              <h1 style={{fontSize: '6vw'}}>
                 Hey there, I'm Lucas!
               </h1>
               <SubTitle style={{fontSize: '2vw'}}>
@@ -58,32 +107,10 @@ function App() {
           </PageSection>
           
           <PageContents>
+            <ProfileCard />
+            <ExperienceCard />
 
-            <PageSection color='#ffffff' height='25vh' id='about'>
-              <div style={{width: '75%'}}>
-                <h3>I've got experience in a number of different languages and will be graduating from Oregon State University in 2021 with a degree in Computer Science with a focus on Artificial Intelligence.</h3>
-                <h1>If you're looking for more details or would like a resume, checkout my LinkedIn or send me <CustomLink href='mailto:stellal@oregonstate.edu'>an email</CustomLink></h1>
-              </div>
-            </PageSection>
-                      
-            <PageSection height='40vh'>
-              <BackgroundDiv backgroundColor='#D64933'>
-                <h1 style={{fontFamily: 'BeVietnam-Regular'}}>Experience</h1>
-                <ListContainer>
-                  <li>TypeScript</li>
-                  <li>ReactJS</li>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                  <li>C</li>
-                  <li>Python</li>
-                  <li>SQL</li>
-                  <li>Git</li>
-                  <li>Java</li>
-                </ListContainer>
-              </BackgroundDiv>
-            </PageSection>
-
-            <PageSection height='min-content' color='#023e8a'>
+            <PageSection height='min-content'>
               <h1>Past Work</h1>
               <FlexContainer>
                 <ContainerItem>
@@ -103,7 +130,7 @@ function App() {
               </FlexContainer>
             </PageSection> 
 
-            <PageSection height='min-content' color='#023e8a' id='projects'>
+            <PageSection height='min-content' id='projects'>
               <h1>Projects</h1>
               <FlexContainer>
                 <ContainerItem>
@@ -113,11 +140,16 @@ function App() {
                   </ImageItem>
                 </ContainerItem>
                 <ContainerItem>
+                  <ImageItem height={200} src='cs446_final.png'>
+                    <h4>Protein residue interaction network analysis</h4>
+                    <Button href='https://github.com/picodase/cs446_final'>Visit</Button>
+                  </ImageItem>
+                </ContainerItem>
+                <ContainerItem>
                   <ImageItem height={200} src='mypage_cropped.png'>
                     <h4>This Website! Built using ReactJS. Still in development...</h4>
                     <Button href='https://lstelladev.com'>Visit</Button>
                   </ImageItem>
-                  
                 </ContainerItem>
                 
                 <ContainerItem>
@@ -130,7 +162,7 @@ function App() {
               <h1>Check out my <CustomLink target='_blank' href='https://github.com/thestellarl'>GitHub</CustomLink> for more</h1>
             </PageSection>
 
-            <PageSection height='40vh' color='#023e8a'>
+            <PageSection height='min-content'>
               <h1>Think I'd be a good fit for your team? Reach out!</h1>
               <Button href='mailto:stellal@oregonstate.edu'>Contact Me!</Button>
             </PageSection>
@@ -149,11 +181,6 @@ export const colorTheme = {
   background: '#26465320',
   headerColor: '#a4161a',
 }
-
-const CustomLink = styled.a`
-  text-decoration: underline;
-  color: #2a9d8f;
-`;
 
 const FlexContainer = styled.div`
   position: relative;
@@ -175,35 +202,6 @@ const ContainerItem = styled.div`
   margin-bottom: 25px;
   height: 100%;
   border-radius: 14px;
-`;
-
-const ListContainer = styled.ul`
-  display: flex;
-  list-style: none;
-  flex-direction: row;
-  font-size: 2.5em;
-  font-weight: bold;
-  text-shadow: 0 2px 5px rgba(33,33,33,.5);
-  justify-content: space-around;
-  > * {
-    margin: 0 25px;
-    transition: all 0.2s ease-in-out;
-    :hover{
-      transform: scale(1.5);
-      text-shadow: 0 10px 5px rgba(33,33,33,.5);
-    }
-  }
-`;
-
-const BackgroundDiv = styled.div<{ backgroundColor: string }>`
-  padding: 20px;
-  border-radius: 16px;
-  z-index: -1;
-  left: 0;
-  // background: #a4161a;
-  // box-shadow:  20px 20px 60px #a4161a, 
-  //            -20px -20px 60px #ba181b;
-  color: #023e8a;
 `;
 
 const fadeIn = keyframes`
@@ -229,37 +227,24 @@ const SubTitle = styled.p`
   font-size: 2em;
 `; 
 
-interface PageSectionProps{
-  color?: string;
-  backgroundColor?: string;
-  height?: string | number;
-  tapered?: number;
-}
-
-const PageSection = styled.section<PageSectionProps>`
-  display: flex;
-  font-family: BeVietnam-Regular;
-  flex-direction: column;
-  position: relative;
-  background-color: ${({ theme }) => theme.background};
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: ${({ height }) => (typeof height === 'number' ? height + `px` : height) || 'min-content'};
-  overflow-x: hidden;
-  color: ${({color}) => color || '#000000'};
-`;
-
 const PageContents = styled.div`
+  color: #264653;
   &>*{
-    padding: 5% 0%;
-    margin: 5% 0%;
+    padding: 2.5% 0%;
+    margin: 2.5% 0%;
   }
   >:nth-child(even){
     clip-path: polygon(0% 0%, 100% 5%, 100% 95%, 0% 100%);
   }
   >:nth-child(odd){
     clip-path: polygon(0% 5%, 100% 0%, 100% 100%, 0% 95%);
+  }
+  >:first-child{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 95%);
+    margin-top: 0;
+  }
+  >:last-child{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    margin-bottom: 0;
   }
 `;

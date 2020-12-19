@@ -21,9 +21,9 @@ export const BoidsOptions = ({ settings, onChange }: IBoidsOptionsProps) => {
                 <li>Separation</li>
                 <li>Cohesion</li>
                 <li>Alignment</li>
-                <li>Vision Range <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/> {settings.sightDropOff}</li>
-                <li>Show Vision <input type="checkbox" value={"Vision"} onInput={(e) => onChange({ ...settings, showVision: e.currentTarget.checked}) }/> </li>
-                <li>Show Cohesion <input type="checkbox" value={"Vision"} onInput={(e) => onChange({ ...settings, showCohesionVector: e.currentTarget.checked}) }/> </li>
+                <li>Vision Range <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => settings.sightDropOff = parseInt(e.currentTarget.value) }/> {settings.sightDropOff}</li>
+                <li>Show Vision <input type="checkbox" value={"Vision"} onInput={(e) => settings.showVision = e.currentTarget.checked }/> </li>
+                <li>Show Cohesion <input type="checkbox" value={"Vision"} onInput={(e) => settings.showCohesionVector = e.currentTarget.checked }/> </li>
                 {/* <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li>
                 <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li> */}
             </OptionsWrapper>
@@ -49,7 +49,6 @@ const ArrowWrapper = styled.div`
     top: 12px;
     right: -1px;
     cursor: pointer;
-    border: 1px solid white;
     width: 24px;
     height: 24px;
     border-radius: 8px 0px 0px 8px;

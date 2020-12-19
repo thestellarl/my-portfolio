@@ -3,13 +3,18 @@ import styled from 'styled-components';
 import { useViewport } from '../../utilities/window-resize';
 import { BoidsOptions } from './boidsOptions';
 import { boid, BoidSettings } from './interfaces';
-import { alignBoids, normalize } from './utilities';
+import { normalize } from './utilities';
 
 export const FloaterBackground = () => {
     const initialSettings: BoidSettings = {
+      cohesionFactor: 1,
+      showCohesion: false,
+      seperationFactor: 1,
+      showSeperation: false,
+      alignmentFactor: 1,
+      showAlignment: false,
       sightDropOff: 50,
-      showVision: false,
-      showCohesionVector: false,
+      showVision: false
     }
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
@@ -43,7 +48,6 @@ export const FloaterBackground = () => {
     const handleMouseOver = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
       mousePosition.current = { x: event.pageX, y: event.pageY }
     }
-
 
     for(let i = objectData.length; i < 120; i++){
       objectData.push({ 
@@ -85,12 +89,15 @@ export const FloaterBackground = () => {
               }
 
             })
-            // context.beginPath();
-            // context.moveTo(obj.position.x, obj.position.y);
-            // context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
-            // context.strokeStyle = 'white';
-            // context.stroke();
-            // context.closePath();
+            if(settings.current.showCohesionVector){
+              context.beginPath();
+              context.moveTo(obj.position.x, obj.position.y);
+              context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
+              context.strokeStyle = 'white';
+              context.stroke();
+              context.closePath();
+            }
+
               
             //Apply Cohesion
             let c = normalize({x: obj.position.x - (localAvg.x / num_local), y: obj.position.y - (localAvg.y / num_local)})
@@ -181,6 +188,5 @@ const StyledCanvas = styled.canvas`
   left: 0;
   top: 0;
   z-index: -1;
-  // background-color: #48cae4; 
   background: linear-gradient(336deg, #264653, #2a9d8f);
 `;
