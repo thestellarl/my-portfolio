@@ -9,7 +9,7 @@ const ProfileCard = () => {
               <ProfilePhoto src='./profile2.jpg' />
               <div style={{ marginRight: '5vw'}}>
                 <h3>I've got experience in a number of different languages and will be graduating from Oregon State University in 2021 with a degree in Computer Science with a focus on Artificial Intelligence.
-                    I have professional experience with front-end development and a strong passion for machine learning built on a strong math background. In my spare time you'll find me doing anything from 
+                    I have professional experience with front-end development and a passion for machine learning built on a strong math background. In my spare time you'll find me doing anything from 
                     working on a new software project to building and racing drones.
                 </h3>
                 <h1>If you're looking for more details or would like a resume, checkout my LinkedIn or send me <CustomLink href='mailto:stellal@oregonstate.edu'>an email!</CustomLink></h1>
