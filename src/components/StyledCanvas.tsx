@@ -7,10 +7,10 @@ export const FloaterBackground = () => {
     let animationStart: number | undefined;
 
     interface boid {
-        x: number;
-        y: number;
-        angle: number;
-        speed: number;
+        position: {x: number, y: number},
+        velocity: {dx: number, dy: number},
+        max_speed: number,
+        orientation: number,
         size: number;
     };
     let objectData: boid[] = [];
@@ -38,8 +38,13 @@ export const FloaterBackground = () => {
         animationStart = timestamp;
       const elapsed = timestamp - animationStart;
   
-      for(let i = objectData.length; i < 50; i++){
-          objectData.push({x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, angle: Math.random() * 2 * Math.PI, speed: 2, size: 4})
+      for(let i = objectData.length; i < 50; i++){  
+        objectData.push({ 
+          position:{x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight}, 
+          velocity: {dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1}, 
+          max_speed: 1, 
+          orientation: Math.random() * 2 * Math.PI, 
+          size: 4})
       }
 
       if (context){
@@ -48,17 +53,17 @@ export const FloaterBackground = () => {
           context!.fillStyle = "#2a9d8f";
           objectData = objectData.filter((obj) => {                
             
-            const sensor = {x: obj.x + Math.cos(obj.angle) * obj.speed * 50, y: obj.y + Math.sin(obj.angle) * obj.speed * 100}
+            // const sensor = {x: obj.x + Math.cos(obj.angle) * obj.speed * 50, y: obj.y + Math.sin(obj.angle) * obj.speed * 100}
             // if (sensor.x > window.innerWidth || sensor.x < 0 )
             //   obj.angle -= 0.1
             // if (sensor.y > window.innerHeight || sensor.y < 0)
             //   obj.angle -= 0.1
 
             objectData.map((otherBoid) => {
-                  const dist = Math.sqrt(Math.pow(obj.x - otherBoid.x, 2) + Math.pow(obj.y - otherBoid.y, 2));
-                  const objToOther = {dx: otherBoid.x - obj.x , dy: otherBoid.y - obj.y};
+                  const dist = Math.sqrt(Math.pow(obj.position.x - otherBoid.position.x, 2) + Math.pow(obj.position.y - otherBoid.position.y, 2));
+                  const objToOther = {dx: otherBoid.position.x - obj.position.x , dy: otherBoid.position.y - obj.position.y};
 
-                  const angleOffset = Math.acos((Math.cos(obj.angle) * objToOther.dx + Math.sin(obj.angle) * objToOther.dy) / Math.sqrt( Math.pow(objToOther.dx, 2) + Math.pow(objToOther.dy, 2)));
+                  // const angleOffset = Math.acos((Math.cos(obj.angle) * objToOther.dx + Math.sin(obj.angle) * objToOther.dy) / Math.sqrt( Math.pow(objToOther.dx, 2) + Math.pow(objToOther.dy, 2)));
                   // context.beginPath();
                   // context.moveTo(obj.x, obj.y);
                   // context.lineTo(obj.x + Math.cos(obj.angle - Math.PI / 3 * 2) * 200, obj.y + Math.sin(obj.angle - Math.PI / 3 * 2) * 200);
@@ -73,19 +78,19 @@ export const FloaterBackground = () => {
                   // context.stroke();
                   // context.closePath();
 
-                  if(dist < 200 && Math.abs(angleOffset) < Math.PI / 3){
+                  // if(dist < 200 && Math.abs(angleOffset) < Math.PI / 3){
                     //obj.angle += -(Math.min(obj.angle - otherBoid.angle, otherBoid.angle - obj.angle - Math.PI * 2 )) * sigmoid(dist/100) * obj.speed * 0.001;
-                    let outer = otherBoid.angle - obj.angle;
-                    let inner = otherBoid.angle - (obj.angle - 2 * Math.PI);
+                    // let outer = otherBoid.angle - obj.angle;
+                    // let inner = otherBoid.angle - (obj.angle - 2 * Math.PI);
                     
                     // obj.angle += (Math.abs(outer) < Math.abs(inner) ? outer : inner) * sigmoid(dist/50) * obj.speed * 0.5;
-                  }
+                  // }
               })
-              obj.x += obj.speed * Math.cos(obj.angle);
-              obj.y += obj.speed * Math.sin(obj.angle);
+              // obj.position.x += obj.velocity.dx;
+              // obj.position.y += obj.velocity.dy;
 
               context.beginPath();
-              context.arc(obj.x, obj.y, obj.size, 0, 2 * Math.PI);
+              context.arc(obj.position.x, obj.position.y, obj.size, 0, 2 * Math.PI);
               context.fill();
               context.closePath();
 
@@ -98,7 +103,7 @@ export const FloaterBackground = () => {
               // context.closePath();
 
               context.restore();
-              return !(Math.abs(obj.x - window.innerWidth / 2) > window.innerWidth/2 || Math.abs(obj.y - window.innerHeight / 2) > window.innerHeight/2)
+              return !(Math.abs(obj.position.x - window.innerWidth / 2) > window.innerWidth/2 || Math.abs(obj.position.y - window.innerHeight / 2) > window.innerHeight/2)
           });
           context.restore();
       }

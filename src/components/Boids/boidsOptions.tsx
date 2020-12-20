@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useViewport } from '../../utilities/window-resize';
 import { BoidSettings } from './interfaces';
@@ -10,26 +10,34 @@ interface IBoidsOptionsProps {
 
 export const BoidsOptions = ({ settings, onChange }: IBoidsOptionsProps) => {
     const [isVisible, setVisible ] = useState(false);
-
+    
     return(
-        <Wrapper>
+        <Wrapper isVisible={isVisible}>
             <ArrowWrapper onClick={() => setVisible(!isVisible)}>
                 <ArrowIcon src='SVG/arrow.svg' width={16} height={16} isVisible={isVisible}/>
             </ArrowWrapper>
             <OptionsWrapper isVisible={isVisible}>
-                <Placeholder>Boid Settings Coming Soon</Placeholder>
-                {/* <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li>
-                <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li>
-                <li>view drop-off <input type="range" min="1" max="100" value={settings.sightDropOff} id="myRange" onInput={(e) => onChange({ ...settings, sightDropOff: parseInt(e.currentTarget.value)})}/></li> */}
+                <OptionLabel>Cohesion</OptionLabel>
+                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.showCohesion = e.currentTarget.checked }/> </div>
+                <div><input type="range" min="0" max="4" value={settings.cohesionFactor} id="myRange" onChange={(e) => console.log(e.currentTarget.value) }/></div>
+                <div>{settings.cohesionFactor}</div>
+                <OptionLabel>Separation</OptionLabel>
+                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.showSeparation = e.currentTarget.checked }/></div>
+                <div><input type="range" min="0" max="4" value={settings.separationFactor} id="myRange" onInput={(e) => settings.separationFactor = parseInt(e.currentTarget.value) }/></div>  
+                <div>{settings.separationFactor}</div>
+                    
+                <OptionLabel>Alignment</OptionLabel>
+                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.showAlignment = e.currentTarget.checked }/></div>
+                <div><input type="range" min="0" max="4" value={settings.alignmentFactor} id="myRange" onInput={(e) => settings.alignmentFactor = parseInt(e.currentTarget.value) }/></div>
+                <div>{settings.alignmentFactor}</div>
+                    
+                <OptionLabel>Vision Range </OptionLabel>
+                <div><input type="range" min="1" max="4" value={settings.sightDropOff} id="myRange" onInput={(e) => settings.sightDropOff = parseInt(e.currentTarget.value) }/> {settings.sightDropOff}</div>
             </OptionsWrapper>
         </Wrapper>
 
     );
 }
-
-const Placeholder = styled.li`
-    margin: 25px;
-`;
 
 const ArrowIcon = styled.img<{ isVisible: boolean}>`
     transform: scaleX(${({ isVisible }) => isVisible ? '1' : '-1'});
@@ -44,7 +52,6 @@ const ArrowWrapper = styled.div`
     top: 12px;
     right: -1px;
     cursor: pointer;
-    border: 1px solid white;
     width: 24px;
     height: 24px;
     border-radius: 8px 0px 0px 8px;
@@ -56,28 +63,34 @@ const ArrowWrapper = styled.div`
     }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isVisible: boolean }>`
     display: flex;
     flex-direction: row;
     position: absolute;
-    right: -1px;
     top: 0;
+    right: 0;
+    transform: translate3d(${({ isVisible }) => isVisible ? '0' : '300'}px, 0, 0);
+    transition: transform .3s cubic-bezier(0, .52, 0, 1);
 `;
 
-const OptionsWrapper = styled.ul<{ isVisible: boolean }>`
+const OptionLabel = styled.div`
+    width: 40%;
+`;
+
+const OptionsWrapper = styled.div<{ isVisible: boolean }>`
     margin: 0;
-    border: 1px solid white;
-    border-right: none;
+    position: relative;
     border-radius: 8px 0px 0px 8px;
-    list-style: none;
-    overflow-x: hidden;
+    // list-style: none;
+    // overflow-x: hidden;
     background-color: #2a9d8f;
-    width: ${({ isVisible }) => isVisible ? 250 : 0}px;
-    white-space: nowrap;
-    transition: width 0.25s linear;
-    padding: 0px;
-    padding-right: 0;
+    // white-space: nowrap;
+    // transition: width 0.25s linear;
+    padding: 15px;
     z-index: 2;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
     > * {
         text-align: left;
     }

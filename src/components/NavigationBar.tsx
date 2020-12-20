@@ -22,7 +22,7 @@ export const NavigationBar = ({navLinks = {}, children, scrollPosition}: INaviga
             </SubWrapper>
             <NavigationLinkWrapper scrollPosition={scrollPosition} visible={false} flexNum={'5'}>
                 {Object.keys(navLinks).map((linkText) =>
-                <NavigationLink className={'link'} href={navLinks[linkText]}>
+                <NavigationLink key={linkText} className={'link'} href={navLinks[linkText]}>
                 {linkText}
                 </NavigationLink>
                 )}
@@ -32,7 +32,7 @@ export const NavigationBar = ({navLinks = {}, children, scrollPosition}: INaviga
 };
 
 const SubWrapper = styled.div<{visible: boolean, flexNum: string, scrollPosition: number}>`
-    color: blue;
+    fill: ${({scrollPosition}) => scrollPosition > 150 ? '#264653' : '#ffffff'};
     display: flex;
     max-height: 25%;
     margin-bottom:  ${({scrollPosition}) => scrollPosition > 150 ? `0` : `75`}vh;
@@ -40,7 +40,7 @@ const SubWrapper = styled.div<{visible: boolean, flexNum: string, scrollPosition
     flex: ${({ flexNum }) => flexNum};
     align-items: center;
     justify-content: space-around;
-    transition: all 0.5s ease-in-out;
+    transition: margin-bottom 0.5s ease-in-out;
     pointer-events: auto;
     > * {
         transition: all 0.2s ease-in-out;
@@ -61,6 +61,7 @@ const NavigationLinkWrapper = styled.div<{visible: boolean, flexNum: string, scr
     justify-content: space-around;
     transition: all 0.5s ease-in-out;
     pointer-events: auto;
+    color: #ffffff;
     > * {
         transition: all 0.2s ease-in-out;
         :hover {
@@ -87,11 +88,13 @@ const NavigationBarWrapper = styled.div<{scrollPosition: number}>`
     height: 100vh;
     padding: 0 10px;
     z-index: 2;
+    color: black;
 `;
 
 const NavigationLink = styled.a`
     cursor: pointer;
     text-decoration: none;
     padding: 0 10px;
-    color: white;
+    font-weight: 900;
+    color: inherit;
 `;
