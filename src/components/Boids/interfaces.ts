@@ -11,8 +11,8 @@ export interface boid {
 export interface BoidSettings {
     cohesionFactor: number;
     showCohesion: boolean;
-    seperationFactor: number;
-    showSeperation: boolean;
+    separationFactor: number;
+    showSeparation: boolean;
     alignmentFactor: number;
     showAlignment: boolean;
     

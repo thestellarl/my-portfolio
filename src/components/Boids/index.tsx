@@ -9,8 +9,8 @@ export const FloaterBackground = () => {
     const initialSettings: BoidSettings = {
       cohesionFactor: 1,
       showCohesion: false,
-      seperationFactor: 1,
-      showSeperation: false,
+      separationFactor: 1,
+      showSeparation: false,
       alignmentFactor: 1,
       showAlignment: false,
       sightDropOff: 50,
@@ -89,7 +89,7 @@ export const FloaterBackground = () => {
               }
 
             })
-            if(settings.current.showCohesionVector){
+            if(settings.current.showCohesion){
               context.beginPath();
               context.moveTo(obj.position.x, obj.position.y);
               context.lineTo(localAvg.x / num_local, localAvg.y / num_local);
@@ -107,12 +107,6 @@ export const FloaterBackground = () => {
             let alignmentVector = {x: avgVelocity.dx / num_local, y: avgVelocity.dy / num_local};
             obj.velocity.dx += (alignmentVector.x - obj.velocity.dx) / 20;
             obj.velocity.dy += (alignmentVector.y - obj.velocity.dy) / 20;
-            // context.beginPath();
-            // context.moveTo(obj.position.x, obj.position.y);
-            // context.lineTo(obj.position.x + edgeAvoidance.x * -1600, obj.position.y + edgeAvoidance.y * -1600);
-            // context.strokeStyle = 'red';
-            // context.stroke();
-            // context.closePath();
 
             let edgeAvoidance = {x: Math.tan(Math.PI * ((obj.position.x / width + 1/2))) / 400, y: Math.tan(Math.PI * ((obj.position.y / height + 1/2))) / 400};
             obj.velocity.dx += edgeAvoidance.x;
@@ -130,18 +124,20 @@ export const FloaterBackground = () => {
             obj.velocity.dy = g.y;
             obj.position.x += -obj.velocity.dx;
             obj.position.y += -obj.velocity.dy;
-
-            // context.beginPath();
-            // context.moveTo(obj.position.x, obj.position.y);
-            // context.lineTo(obj.position.x + obj.velocity.dx * -40, obj.position.y + obj.velocity.dy * -40);
-            // context.strokeStyle = 'blue';
-            // context.stroke();
-            // context.closePath();
+            if(settings.current.showAlignment){
+              context.beginPath();
+              context.moveTo(obj.position.x, obj.position.y);
+              context.lineTo(obj.position.x + obj.velocity.dx * -40, obj.position.y + obj.velocity.dy * -40);
+              context.strokeStyle = 'blue';
+              context.stroke();
+              context.closePath();
+            }
 
             context.beginPath();
             context.arc(obj.position.x, obj.position.y, obj.size, 0, 2 * Math.PI);
             context.fill();
             context.closePath();
+            
             if(settings.current.showVision){
               context.beginPath();
               context.save();
@@ -153,13 +149,6 @@ export const FloaterBackground = () => {
             }
 
             context.save();
-            // context.beginPath();
-            // context.moveTo(obj.x, obj.y);
-            // context.lineTo(obj.x + Math.cos(obj.angle) * obj.speed * 20, obj.y + Math.sin(obj.angle) * obj.speed * 20);
-            // context.strokeStyle = 'white';
-            // context.stroke();
-            // context.closePath();
-
             context.restore();
             return !(Math.abs(obj.position.x - window.innerWidth / 2) > window.innerWidth/2 || Math.abs(obj.position.y - window.innerHeight / 2) > window.innerHeight/2)
           });
@@ -169,9 +158,12 @@ export const FloaterBackground = () => {
       window.requestAnimationFrame(draw);
     };
 
+    const getBoidsOptions = useCallback(() => <BoidsOptions settings={settings.current} onChange={(newSettings) => settings.current = newSettings} />
+    , [settings.current])
+
     return(
       <>
-        <BoidsOptions settings={settings.current} onChange={(newSettings) => settings.current = newSettings} />
+        {getBoidsOptions()}
         <StyledCanvas 
         id="canvas"
         ref={canvasRef}

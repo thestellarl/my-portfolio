@@ -114,14 +114,14 @@ function App() {
               <h1>Past Work</h1>
               <FlexContainer>
                 <ContainerItem>
-                  <ImageItem height={200} src='bd_logo.png'>
+                  <ImageItem height={200} src='bd_logo2.png'>
                     <h1 style={{marginBottom: '5px'}}>Software Intern</h1>
                     <h5 style={{marginTop: '0px'}}>June 2019 - Sept 2020</h5>
                     <h4>Front-End Development with ReactJS</h4>
                   </ImageItem>
                 </ContainerItem>
                 <ContainerItem>
-                  <ImageItem height={200} src='osu_logo.jpg'>
+                  <ImageItem height={200} src='osu_logo2.jpg'>
                     <h1 style={{marginBottom: '5px'}}>Computer Graphics Intern</h1>
                     <h5 style={{marginTop: '0px'}}>June 2016 - Sept 2016</h5>
                     <h4>Computer graphics programming using C++ and OpenGL</h4>
@@ -156,6 +156,13 @@ function App() {
                   <ImageItem height={200} src='drone_gold_still_cropped.png'>
                     <h4>Drone Videography. I build and fly drones and sometimes I film stuff</h4>
                     <Button href='https://www.instagram.com/p/CEXPzvzp5P_/'>View</Button>
+                  </ImageItem>
+                </ContainerItem>
+
+                <ContainerItem>
+                  <ImageItem height={200} src='light_bar.jpg'>
+                    <h4>Built a mobile controlled LED display utilizing the ESP8266</h4>
+                    <Button disabled>Repo coming soon</Button>
                   </ImageItem>
                 </ContainerItem>
               </FlexContainer>
