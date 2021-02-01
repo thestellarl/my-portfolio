@@ -140,7 +140,7 @@ function App() {
                   </ImageItem>
                 </ContainerItem>
                 <ContainerItem>
-                  <ImageItem height={200} src='cs446final.jpg'>
+                  <ImageItem height={200} src='446_final.png'>
                     <h4>Protein residue interaction network analysis</h4>
                     <Button href='https://github.com/picodase/cs446_final'>Visit</Button>
                   </ImageItem>
