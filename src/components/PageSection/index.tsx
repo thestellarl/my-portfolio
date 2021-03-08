@@ -9,6 +9,7 @@ interface PageSectionProps{
 }
 
 const PageSection = styled.section<PageSectionProps>`
+  position: relative;
   display: flex;
   font-family: BeVietnam-Regular;
   flex-direction: column;

@@ -56,6 +56,7 @@ const NavigationLinkWrapper = styled.div<{visible: boolean, flexNum: string, scr
     position: absolute;
     left: ${({ scrollPosition }) => scrollPosition < 150 ? '0' : '-100'}px;
     height: 75vh;
+    width: 100px;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -71,6 +72,9 @@ const NavigationLinkWrapper = styled.div<{visible: boolean, flexNum: string, scr
 `;
 
 const NavigationBarWrapper = styled.div<{scrollPosition: number}>`
+    @media (max-width: 800px) {
+        display: none;
+    }
     pointer-events: none;
     display: flex;
     flex-direction: column;
@@ -80,7 +84,6 @@ const NavigationBarWrapper = styled.div<{scrollPosition: number}>`
     justify-content: flex-end;
     align-content: center;
     width: 100px;
-    font-size: calc(2vmin);
     background-color: inherit;
     position: fixed;
     top: 0px;

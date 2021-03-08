@@ -6,11 +6,7 @@ import { NavigationBar } from './components/NavigationBar';
 import DownArrow from './down_arrow.svg'
 import { FloaterBackground } from './components/Boids';
 import { Paper } from './components/Paper';
-import { Carousel } from './components/Carousel';
 import { ViewportProvider, useViewport } from './utilities/window-resize';
-import { FeatureGrid } from './components/FeatureGrid';
-import { FeatureItem } from './components/FeatureGrid/components/featureItem';
-import { GifPlayer } from './components/GifPlayer';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 import { GithubIcon } from './icons/GithubIcon';
 import { ImageItem } from './components/ImageItem';
@@ -20,6 +16,7 @@ import PageSection from './components/PageSection';
 import CustomLink from './components/StyledLink';
 import ProfileCard from './components/Cards/Intro';
 import ExperienceCard from './components/Cards/Experience';
+import ScrollIcon from './icons/ScrollIcon';
 
 function getScrollPosition( element?: React.RefObject<HTMLDivElement>) {
   const target = element ? element.current : document.body;
@@ -59,16 +56,9 @@ function App() {
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const appRef = React.useRef<HTMLDivElement>(null);
 
-  // useScrollPosition((currPos: number) => {
-  //     scrollPosition.current = currPos;
-  // }, [scrollPosition.current], appRef, 100);
   useScrollPosition((currPos: number) => {
     setScrollPosition(currPos);
   }, [scrollPosition], appRef, 100);
-
-  // useEffect(() => {
-  //   console.log(scrollPosition.current);
-  // }, [scrollPosition.current]);
 
   const navigationMap = {
     Home: '/#home',
@@ -94,16 +84,18 @@ function App() {
           <PageSection id='home' color='#ffffff' height='100vh' >
             <FloaterBackground />
             <GreetingWrapper style={{pointerEvents: "none"}}>
-              <h1 style={{fontSize: '6vw'}}>
+              <h1 style={{fontSize: '6vmax'}}>
                 Hey there, I'm Lucas!
               </h1>
-              <SubTitle style={{fontSize: '2vw'}}>
+              <SubTitle style={{fontSize: '2vmax'}}>
                 I am a <b>software developer</b>, <b>avid tinkerer</b> and a <b>dedicated problem solver</b>.
               </SubTitle>
-              <SubTitle style={{fontSize: '2vw'}}>
+              <SubTitle style={{fontSize: '2vmax'}}>
                 Scroll to learn more about me!
               </SubTitle>
             </GreetingWrapper>
+            <ScrollIcon />
+
           </PageSection>
           
           <PageContents>
@@ -237,15 +229,20 @@ const SubTitle = styled.p`
 const PageContents = styled.div`
   color: #264653;
   &>*{
+    @media (max-width: 800px) {
+      padding: 10% 0%;
+    }
     padding: 2.5% 0%;
     margin: 2.5% 0%;
   }
   >:nth-child(even){
     clip-path: polygon(0% 0%, 100% 5%, 100% 95%, 0% 100%);
   }
+
   >:nth-child(odd){
     clip-path: polygon(0% 5%, 100% 0%, 100% 100%, 0% 95%);
   }
+
   >:first-child{
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 95%);
     margin-top: 0;

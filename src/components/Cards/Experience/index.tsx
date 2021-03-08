@@ -24,6 +24,10 @@ const ExperienceCard = () => {
 export default ExperienceCard;
 
 const ListContainer = styled.ul`
+@media (max-width: 800px) {
+  flex-direction: column;
+}  
+  
   display: flex;
   list-style: none;
   flex-direction: row;
