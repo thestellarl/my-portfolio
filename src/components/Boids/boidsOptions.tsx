@@ -4,35 +4,34 @@ import { useViewport } from '../../utilities/window-resize';
 import { BoidSettings } from './interfaces';
 
 interface IBoidsOptionsProps {
-    settings: BoidSettings;
-    onChange: (value: BoidSettings) => void;
+    settings: React.MutableRefObject<BoidSettings>;
+    // onChange: (value: BoidSettings) => void;
 }
 
-export const BoidsOptions = ({ settings, onChange }: IBoidsOptionsProps) => {
+export const BoidsOptions = ({ settings }: IBoidsOptionsProps) => {
     const [isVisible, setVisible ] = useState(false);
-    
+
     return(
         <Wrapper isVisible={isVisible}>
             <ArrowWrapper onClick={() => setVisible(!isVisible)}>
                 <ArrowIcon src='SVG/arrow.svg' width={16} height={16} isVisible={isVisible}/>
             </ArrowWrapper>
             <OptionsWrapper isVisible={isVisible}>
+                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.current = {...settings.current, showCohesion: e.currentTarget.checked}}/> </div>
                 <OptionLabel>Cohesion</OptionLabel>
-                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.showCohesion = e.currentTarget.checked }/> </div>
-                <div><input type="range" min="0" max="4" value={settings.cohesionFactor} id="myRange" onChange={(e) => console.log(e.currentTarget.value) }/></div>
-                <div>{settings.cohesionFactor}</div>
+                <div><input type="range" defaultValue={settings.current.cohesionFactor} min="0" max="2" step={0.5} id="myRange" onInput={(e) => settings.current = {...settings.current, cohesionFactor: parseInt(e.currentTarget.value) }} /></div>
+                
+                <div><input type="checkbox" value={"Vision"} disabled onInput={(e) => settings.current = {...settings.current, showSeparation: e.currentTarget.checked }}/></div>
                 <OptionLabel>Separation</OptionLabel>
-                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.showSeparation = e.currentTarget.checked }/></div>
-                <div><input type="range" min="0" max="4" value={settings.separationFactor} id="myRange" onInput={(e) => settings.separationFactor = parseInt(e.currentTarget.value) }/></div>  
-                <div>{settings.separationFactor}</div>
+                <div><input type="range" defaultValue={settings.current.separationFactor} min="0" max="2" step={0.5} id="myRange" onChange={(e) => settings.current = {...settings.current, separationFactor: parseInt(e.currentTarget.value) }}/></div>  
                     
+                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.current = {...settings.current, showAlignment: e.currentTarget.checked}}/></div>
                 <OptionLabel>Alignment</OptionLabel>
-                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.showAlignment = e.currentTarget.checked }/></div>
-                <div><input type="range" min="0" max="4" value={settings.alignmentFactor} id="myRange" onInput={(e) => settings.alignmentFactor = parseInt(e.currentTarget.value) }/></div>
-                <div>{settings.alignmentFactor}</div>
+                <div><input type="range" defaultValue={settings.current.alignmentFactor} min="0" max="2" step={0.5} id="myRange" onChange={(e) => settings.current = {...settings.current, alignmentFactor: parseInt(e.currentTarget.value) }}/></div>
                     
+                <div><input type="checkbox" value={"Vision"} onInput={(e) => settings.current = {...settings.current, showVision: e.currentTarget.checked}}/></div>
                 <OptionLabel>Vision Range </OptionLabel>
-                <div><input type="range" min="1" max="4" value={settings.sightDropOff} id="myRange" onInput={(e) => settings.sightDropOff = parseInt(e.currentTarget.value) }/> {settings.sightDropOff}</div>
+                <div><input type="range" min="0" max="2" defaultValue={settings.current.sightDropOff} step={0.5} id="myRange" onChange={(e) => settings.current = {...settings.current, sightDropOff: parseFloat(e.currentTarget.value) }}/></div>
             </OptionsWrapper>
         </Wrapper>
 

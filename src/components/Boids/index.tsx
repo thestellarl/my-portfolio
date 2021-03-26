@@ -2,20 +2,22 @@ import React, { useRef, useEffect, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { useViewport } from '../../utilities/window-resize';
 import { BoidsOptions } from './boidsOptions';
+import BoidCanvas from './canvas';
 import { boid, BoidSettings } from './interfaces';
 import { normalize } from './utilities';
 
+const initialSettings: BoidSettings = {
+  cohesionFactor: 1,
+  showCohesion: false,
+  separationFactor: 1,
+  showSeparation: false,
+  alignmentFactor: 1,
+  showAlignment: false,
+  sightDropOff: 1,
+  showVision: false
+}
+
 export const FloaterBackground = () => {
-    const initialSettings: BoidSettings = {
-      cohesionFactor: 1,
-      showCohesion: false,
-      separationFactor: 1,
-      showSeparation: false,
-      alignmentFactor: 1,
-      showAlignment: false,
-      sightDropOff: 50,
-      showVision: false
-    }
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
     
@@ -76,10 +78,10 @@ export const FloaterBackground = () => {
               const dist = Math.sqrt(Math.pow(objToOther.dx, 2) + Math.pow(objToOther.dy, 2));
                   
               //Movement
-              if(dist < 120){
+              if(dist < 120 * settings.current.sightDropOff){
                 let repulsive_force = normalize({x: otherBoid.position.x - obj.position.x, y: otherBoid.position.y - obj.position.y}) ;
-                obj.velocity.dx += repulsive_force.x / 15;
-                obj.velocity.dy += repulsive_force.y / 15;
+                obj.velocity.dx += settings.current.separationFactor * repulsive_force.x / 15;
+                obj.velocity.dy += settings.current.separationFactor * repulsive_force.y / 15;
                 //cohesion average
                 num_local++;
                 localAvg.x += otherBoid.position.x;
@@ -101,12 +103,12 @@ export const FloaterBackground = () => {
               
             //Apply Cohesion
             let c = normalize({x: obj.position.x - (localAvg.x / num_local), y: obj.position.y - (localAvg.y / num_local)})
-            obj.velocity.dx += c.x / 4;
-            obj.velocity.dy += c.y / 4;
+            obj.velocity.dx += settings.current.cohesionFactor * c.x / 4;
+            obj.velocity.dy += settings.current.cohesionFactor * c.y / 4;
             
             let alignmentVector = {x: avgVelocity.dx / num_local, y: avgVelocity.dy / num_local};
-            obj.velocity.dx += (alignmentVector.x - obj.velocity.dx) / 20;
-            obj.velocity.dy += (alignmentVector.y - obj.velocity.dy) / 20;
+            obj.velocity.dx += settings.current.alignmentFactor * (alignmentVector.x - obj.velocity.dx) / 20;
+            obj.velocity.dy += settings.current.alignmentFactor * (alignmentVector.y - obj.velocity.dy) / 20;
 
             let edgeAvoidance = {x: Math.tan(Math.PI * ((obj.position.x / width + 1/2))) / 400, y: Math.tan(Math.PI * ((obj.position.y / height + 1/2))) / 400};
             obj.velocity.dx += edgeAvoidance.x;
@@ -141,7 +143,7 @@ export const FloaterBackground = () => {
             if(settings.current.showVision){
               context.beginPath();
               context.save();
-              context.arc(obj.position.x, obj.position.y, 120, 0, 2 * Math.PI);
+              context.arc(obj.position.x, obj.position.y, settings.current.sightDropOff * 120, 0, 2 * Math.PI);
               context!.fillStyle = "#ffffff08";
               context.fill();
               context.restore();
@@ -158,27 +160,23 @@ export const FloaterBackground = () => {
       window.requestAnimationFrame(draw);
     };
 
-    const getBoidsOptions = useCallback(() => <BoidsOptions settings={settings.current} onChange={(newSettings) => settings.current = newSettings} />
-    , [settings.current])
+    useEffect(() => {
+      console.log(settings);
+    }, [settings]);
+
+    const getBoidsOptions = useCallback(() => {
+      return (<BoidsOptions settings={settings} />);
+    }
+    , [settings])
+
+    const getBoidCanvas = useCallback(() => <BoidCanvas settingsRef={settings} canvasRef={canvasRef} />, [])
 
     return(
       <>
+        {/* <BoidsOptions settings={settings} /> */}
         {getBoidsOptions()}
-        <StyledCanvas 
-        id="canvas"
-        ref={canvasRef}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onMouseMove={handleMouseOver}
-        />
+        {getBoidCanvas()}
       </>
     );
 }
 
-const StyledCanvas = styled.canvas`
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  background: linear-gradient(336deg, #264653, #2a9d8f);
-`;
