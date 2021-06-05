@@ -157,6 +157,13 @@ function App() {
                     <Button disabled>Repo coming soon</Button>
                   </ImageItem>
                 </ContainerItem>
+
+                <ContainerItem>
+                  <ImageItem height={200} src='drone.png'>
+                    <h4>Designed a Drone based system to improve the situal awareness of Airborn Wildfire Fighting efforts</h4>
+                    <Button href="https://eecs.oregonstate.edu/project-showcase/projects/?id=HhhD4OZfTfbfwfKg" >View</Button>
+                  </ImageItem>
+                </ContainerItem>
               </FlexContainer>
               <h1>Check out my <CustomLink target='_blank' href='https://github.com/thestellarl'>GitHub</CustomLink> for more</h1>
             </PageSection>

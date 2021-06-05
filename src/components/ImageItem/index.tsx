@@ -18,7 +18,7 @@ export const ImageItem = ({ height, src, children}: ImageItemProps) => {
             <ContentWrapper showContent={showContent}>
                 {children}
             </ContentWrapper>
-            <ImageWrapper showContent={showContent} src={src} height={height}/>
+            <ImageWrapper showContent={showContent} src={src} height={height} max-width={300}/>
         </Wrapper>
     );
 }
