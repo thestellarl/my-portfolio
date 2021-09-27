@@ -17,6 +17,7 @@ import CustomLink from './components/StyledLink';
 import ProfileCard from './components/Cards/Intro';
 import ExperienceCard from './components/Cards/Experience';
 import ScrollIcon from './icons/ScrollIcon';
+import { BoidGL } from './components/BoidGL';
 
 function getScrollPosition( element?: React.RefObject<HTMLDivElement>) {
   const target = element ? element.current : document.body;
@@ -82,7 +83,7 @@ function App() {
           </NavigationBar>
 
           <PageSection id='home' color='#ffffff' height='100vh' >
-            <FloaterBackground />
+            <BoidGL />
             <GreetingWrapper style={{pointerEvents: "none"}}>
               <h1 style={{fontSize: '6vmax'}}>
                 Hey there, I'm Lucas!
