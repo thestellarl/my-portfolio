@@ -1,0 +1,36 @@
+#page-contents > * {
+    padding: 2.5% 0%;
+    margin: 2.5% 0%;
+}
+
+@media(max-width: 800px) {
+    #page-contents > * {
+        padding: 10% 0%;
+    }
+}
+
+#page-contents > :nth-child(even){
+    clip-path: polygon(0% 0%, 100% 5%, 100% 95%, 0% 100%);
+}
+
+#page-contents > :nth-child(odd){
+    clip-path: polygon(0% 5%, 100% 0%, 100% 100%, 0% 95%);
+}
+
+#page-contents > :first-child{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 95%);
+    margin-top: 0;
+}
+
+#page-contents > :last-child{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    margin-bottom: 0;
+}
+
+.nav_container > * {
+    transition: all 0.25s ease-in-out;
+}
+
+.nav_container > *:hover{
+    transform: scale(1.15);
+}
