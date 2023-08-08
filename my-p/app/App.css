@@ -6,7 +6,9 @@
 .App {
   text-align: center;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: 100vh;
+  background-color: hsl(202deg 24% 57%);
 }
 
 * {
@@ -40,6 +42,7 @@
 
 body{
   overflow-y: hidden;
+  font-family: 'BeVietnam-Regular';
 }
 
 .App-logo {
@@ -82,4 +85,193 @@ body{
 #home {
   background-color: #086788;
   height: 100vh;
+}
+
+
+.main-page-container {
+background-image: linear-gradient(
+  10deg,
+  hsl(125deg 25% 81%) 13%,
+  hsl(142deg 21% 77%) 51%,
+  hsl(158deg 18% 72%) 66%,
+  hsl(175deg 16% 67%) 76%,
+  hsl(190deg 18% 63%) 83%,
+  hsl(199deg 22% 59%) 88%,
+  hsl(200deg 19% 60%) 93%,
+  hsl(186deg 10% 65%) 96%,
+  hsl(107deg 6% 71%) 98%,
+  hsl(58deg 14% 74%) 100%,
+  hsl(48deg 30% 78%) 101%,
+  hsl(45deg 51% 82%) 100%
+);
+}
+
+.App > section:not(:nth-child(1)){
+  /* background-color: hsl(125deg 25% 81%); */
+}
+
+@keyframes expand {
+  0%{
+    left: 0%;
+  }
+  100%{
+    left: -50%;
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@keyframes reveal {
+  0% {
+    -webkit-transform: rotateX(-70deg);
+            transform: rotateX(-70deg);
+    -webkit-transform-origin: bottom;
+            transform-origin: bottom;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+    -webkit-transform-origin: bottom;
+            transform-origin: bottom;
+    opacity: 1;
+  }
+}
+
+@keyframes swing-in-bottom-bck {
+  0% {
+    /* -webkit-transform: rotateX(-70deg);
+            transform: rotateX(-70deg);
+    -webkit-transform-origin: bottom; */
+            /* transform-origin: bottom; */
+    /* opacity: 0; */
+    background-color: white;
+  }
+  100% {
+    /* -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+    -webkit-transform-origin: bottom;
+    transform-origin: bottom; */
+    background-color: blue;
+    /* opacity: 1; */
+  }
+}
+
+@keyframes wipe-open {
+  0%{
+    width: 0;
+    opacity: 0;
+    /* visibility: hidden; */
+  }
+  100%{
+    width: 100vw;
+    opacity: 1;
+    /* visibility: visible; */
+    /* animation: swing-in-bottom-bck 2.4s cubic-bezier(0.175, 0.885, 0.320, 1.275) both; */
+  }
+}
+
+.carousel {
+  animation: wipe-open;
+  animation-timeline: view();
+  animation-range: entry 0% cover 400px;
+
+  > * {
+    text-wrap: nowrap;
+    &:hover{
+      scale: 1.4;
+    }
+  }
+}
+
+@supports(animation-timeline: view()) {
+  @keyframes move {
+    from{
+      background-color: lightcoral;
+    }
+    to {
+      /* Move horizontally so that right edge is aligned against the viewport */
+      /* transform: translateX(calc(-100% + 100vw)); */
+      background-color: lightblue;
+      padding-right: 250vw;
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes rot {
+    /* 0% {
+      scale: 0.2;
+      rotate: 0 70deg;
+      border-radius: 0;
+    }
+
+    40%,
+    60% {
+      scale: 1;
+      rotate: 0deg 0;
+      border-radius: 20px 20px 0 0;
+    }
+    100% {
+      scale: 0.2;
+      rotate: 0 -70deg;
+      border-radius: 0;
+    } */
+    to {
+      background-color: orange;
+    }
+  }
+
+  #sectionPin {
+    /* Stretch it out, so that we create room for the horizontal scroll animation */
+    height: 500vh;
+    overflow: visible; /* To make position sticky work … */
+    view-timeline-name: --section-pin-tl;
+    view-timeline-axis: block;
+  }
+
+  .pin-wrap-sticky {
+    /* Stick to Top */
+    height: 100vh;
+    width: 100vw;
+    position: sticky;
+    top: 0;
+
+    width: 100vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+
+  .pin-wrap {
+    height: 100vh;
+    width: 250vw;
+    /* width: 250vmax; */
+    
+    /* Hook animation */
+    will-change: transform;
+    animation: linear move forwards;
+    
+    /* Link animation to view-timeline */
+    animation-timeline: --section-pin-tl;
+    animation-range: contain 0% contain 100%;
+    background-color: lightcoral;
+    > * {
+      
+      animation: rot 2s forwards;
+      animation-timeline: scroll();
+      animation-timeline: --section-pin-tl;
+    }
+  }
+}
+
+
+.name-card {
+  animation: expand linear;
+  animation-timeline: scroll();
+  animation-range: cover 0% cover 100%;
 }

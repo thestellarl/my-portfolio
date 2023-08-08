@@ -75,9 +75,68 @@ function App() {
     Contact: "mailto:stellal@oregonstate.edu",
   };
 
+  // <PageSection id="home">
+  //       {/* <FloaterBackground /> */}
+  //       <div className="relative text-white" style={{ pointerEvents: "none" }}>
+  //         <h1 style={{ fontSize: "6vmax" }}>Hey there, I'm Lucas!</h1>
+  //         <div className="text-2xl" style={{ fontSize: "2vmax" }}>
+  //           I am a <b>software developer</b>, <b>avid tinkerer</b> and a{" "}
+  //           <b>dedicated problem solver</b>.
+  //         </div>
+  //         <div className="text-2xl" style={{ fontSize: "2vmax" }}>
+  //           Scroll to learn more about me!
+  //         </div>
+  //       </div>
+  //       <ScrollIcon />
+  //     </PageSection>
+
   return (
-    <div className="App" ref={appRef}>
-      <NavigationBar
+    <div
+      className="App"
+      ref={appRef}
+      style={{ fontFamily: "BeVietnam-Regular" }}
+    >
+      <section className="main-page-container relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
+        <div className="flex flex-col name-card glass absolute left-0 pb-6 justify-end items-end">
+          <div className="flex text-9xl font-semibold w-1/2 text-right mx-8 whitespace-normal">
+            Lucas Stella
+          </div>
+          <div className="flex text-4xl font-semibold tracking-widest text-right mx-8">
+            Software Engineer
+          </div>
+        </div>
+      </section>
+
+      <section className="relative flex flex-col items-center justify-center text-6xl font-semibold w-screen h-1/2 select-none">
+        Skills
+        <div className="flex carousel w-screen justify-around">
+          <a>ReactTS</a>
+          <a>UI/UX</a>
+          <a>Git</a>
+          <a>Agile Practices</a>
+          <a>OOP</a>
+        </div>
+      </section>
+
+      <section
+        id="sectionPin"
+        className="relative flex w-screen h-1/2 select-none bg-black"
+      >
+        <div className="pin-wrap-sticky">
+          <div className="pin-wrap flex justify-center items-center justify-around">
+            <div className="rounded w-96 h-96 bg-white"></div>
+            <div className="rounded w-96 h-96 bg-white"></div>
+            <div className="rounded w-96 h-96 bg-white"></div>
+            <div className="rounded w-96 h-96 bg-white"></div>
+          </div>
+        </div>
+      </section>
+
+      <div className="relative flex flex-col items-center justify-center w-screen h-screen text-6xl">
+        END
+      </div>
+
+      {/* <NavigationBar
         scrollPosition={scrollPosition}
         closed={false}
         navLinks={navigationMap}
@@ -91,22 +150,7 @@ function App() {
         <a target="_blank" href="https://github.com/thestellarl">
           <GithubIcon />
         </a>
-      </NavigationBar>
-
-      <PageSection id="home">
-        {/* <FloaterBackground /> */}
-        <div className="relative text-white" style={{ pointerEvents: "none" }}>
-          <h1 style={{ fontSize: "6vmax" }}>Hey there, I'm Lucas!</h1>
-          <div className="text-2xl" style={{ fontSize: "2vmax" }}>
-            I am a <b>software developer</b>, <b>avid tinkerer</b> and a{" "}
-            <b>dedicated problem solver</b>.
-          </div>
-          <div className="text-2xl" style={{ fontSize: "2vmax" }}>
-            Scroll to learn more about me!
-          </div>
-        </div>
-        <ScrollIcon />
-      </PageSection>
+      </NavigationBar> */}
 
       {/* <div className="page-contents" style={{ color: "#264653" }}>
         <ProfileCard />
