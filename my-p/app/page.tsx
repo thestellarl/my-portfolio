@@ -15,6 +15,8 @@ import CustomLink from "../components/StyledLink";
 import ProfileCard from "../components/Cards/Intro";
 import ExperienceCard from "../components/Cards/Experience";
 import ScrollIcon from "../icons/ScrollIcon";
+import Footer from "@/components/Footer";
+import LandingScreen from "@/components/Hero";
 
 function getScrollPosition(element?: React.RefObject<HTMLDivElement>) {
   const target = element ? element.current : document.body;
@@ -54,7 +56,7 @@ export function useScrollPosition(
   //   }, deps);
 }
 
-function App() {
+function App(): React.ReactNode {
   // const scrollPosition = React.useRef(0);
   const [scrollPosition, setScrollPosition] = React.useState(0);
   const appRef = React.useRef<HTMLDivElement>(null);
@@ -97,12 +99,15 @@ function App() {
       style={{ fontFamily: "BeVietnam-Regular" }}
     >
       <section className="main-page-container relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
-        <div className="flex flex-col name-card glass absolute left-0 pb-6 justify-end items-end">
-          <div className="flex text-9xl font-semibold w-1/2 text-right mx-8 whitespace-normal">
+        <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
+          {/* <div className="flex text-9xl font-semibold w-1/2 text-right mx-8 whitespace-normal">
             Lucas Stella
           </div>
           <div className="flex text-4xl font-semibold tracking-widest text-right mx-8">
             Software Engineer
+          </div> */}
+          <div className="flex text-9xl font-semibold w-1/2 text-left mx-8 whitespace-nowrap">
+            <LandingScreen />
           </div>
         </div>
       </section>
@@ -132,8 +137,8 @@ function App() {
         </div>
       </section>
 
-      <div className="relative flex flex-col items-center justify-center w-screen h-screen text-6xl">
-        END
+      <div className="relative flex flex-col justify-center w-screen h-screen text-6xl">
+        <Footer />
       </div>
 
       {/* <NavigationBar

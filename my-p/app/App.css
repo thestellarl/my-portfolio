@@ -199,12 +199,17 @@ background-image: linear-gradient(
       /* Move horizontally so that right edge is aligned against the viewport */
       /* transform: translateX(calc(-100% + 100vw)); */
       background-color: lightblue;
-      padding-right: 250vw;
-      transform: translateX(-50%);
+      transform: translateX(calc(-100% + 100vw));
     }
   }
 
   @keyframes rot {
+    entry 0% {
+      background-color: blue;
+    }
+    entry 100% {
+      background-color: red;
+    }
     /* 0% {
       scale: 0.2;
       rotate: 0 70deg;
@@ -222,14 +227,11 @@ background-image: linear-gradient(
       rotate: 0 -70deg;
       border-radius: 0;
     } */
-    to {
-      background-color: orange;
-    }
   }
 
   #sectionPin {
     /* Stretch it out, so that we create room for the horizontal scroll animation */
-    height: 500vh;
+    height: 300vh;
     overflow: visible; /* To make position sticky work … */
     view-timeline-name: --section-pin-tl;
     view-timeline-axis: block;
@@ -261,7 +263,6 @@ background-image: linear-gradient(
     animation-range: contain 0% contain 100%;
     background-color: lightcoral;
     > * {
-      
       animation: rot 2s forwards;
       animation-timeline: scroll();
       animation-timeline: --section-pin-tl;
@@ -269,9 +270,37 @@ background-image: linear-gradient(
   }
 }
 
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
 
 .name-card {
   animation: expand linear;
   animation-timeline: scroll();
   animation-range: cover 0% cover 100%;
+}
+
+.code-row{
+  font-family: monospace;
+}
+
+.methods {
+  color: #314dcc;
+}
+
+.name {
+  color: #d9d050;
+}
+
+.parens {
+  color: #d4b331;
+}
+
+.string {
+  color: #d4853b;
 }
