@@ -17,6 +17,7 @@ import ExperienceCard from "../components/Cards/Experience";
 import ScrollIcon from "../icons/ScrollIcon";
 import Footer from "@/components/Footer";
 import LandingScreen from "@/components/Hero";
+import Image from "next/image";
 
 function getScrollPosition(element?: React.RefObject<HTMLDivElement>) {
   const target = element ? element.current : document.body;
@@ -106,20 +107,22 @@ function App(): React.ReactNode {
           <div className="flex text-4xl font-semibold tracking-widest text-right mx-8">
             Software Engineer
           </div> */}
-          <div className="flex text-9xl font-semibold w-1/2 text-left mx-8 whitespace-nowrap">
+          <div className="flex font-semibold w-1/2 text-left mx-8 whitespace-nowrap text-white font-sans">
             <LandingScreen />
           </div>
         </div>
       </section>
 
-      <section className="relative flex flex-col items-center justify-center text-6xl font-semibold w-screen h-1/2 select-none">
+      <section className="text-dark1 bg-light1 relative flex flex-col items-center justify-center sm:text-4xl xl:text-6xl font-semibold w-screen h-1/2 select-none">
         Skills
-        <div className="flex carousel w-screen justify-around">
-          <a>ReactTS</a>
-          <a>UI/UX</a>
-          <a>Git</a>
-          <a>Agile Practices</a>
-          <a>OOP</a>
+        <div className="flex carousel w-screen justify-around mt-12 flex-wrap">
+          <a className="m-5">ReactTS</a>
+          <a className="m-5">C++</a>
+          <a className="m-5">UI/UX</a>
+          <a className="m-5">CI/CD</a>
+          <a className="m-5">Git</a>
+          <a className="m-5">Agile Practices</a>
+          <a className="m-5">OOP</a>
         </div>
       </section>
 
@@ -127,8 +130,13 @@ function App(): React.ReactNode {
         id="sectionPin"
         className="relative flex w-screen h-1/2 select-none bg-black"
       >
-        <div className="pin-wrap-sticky">
+        <div className="pin-wrap-sticky bg-light1">
           <div className="pin-wrap flex justify-center items-center justify-around">
+            <div className="rounded w-96 h-96 bg-white relative">
+              <Image src="/recipro_cropped.png" fill alt="recipro screenshot" />
+            </div>
+            <div className="rounded w-96 h-96 bg-white"></div>
+            <div className="rounded w-96 h-96 bg-white"></div>
             <div className="rounded w-96 h-96 bg-white"></div>
             <div className="rounded w-96 h-96 bg-white"></div>
             <div className="rounded w-96 h-96 bg-white"></div>

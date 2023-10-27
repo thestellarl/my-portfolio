@@ -193,12 +193,12 @@ background-image: linear-gradient(
 @supports(animation-timeline: view()) {
   @keyframes move {
     from{
-      background-color: lightcoral;
+      /* background-color: lightcoral; */
     }
     to {
       /* Move horizontally so that right edge is aligned against the viewport */
       /* transform: translateX(calc(-100% + 100vw)); */
-      background-color: lightblue;
+      /* background-color: lightblue; */
       transform: translateX(calc(-100% + 100vw));
     }
   }
@@ -261,13 +261,22 @@ background-image: linear-gradient(
     /* Link animation to view-timeline */
     animation-timeline: --section-pin-tl;
     animation-range: contain 0% contain 100%;
-    background-color: lightcoral;
     > * {
-      animation: rot 2s forwards;
+      /* box shadow */
+      box-shadow: 11px 10px 27px 0px rgba(0,0,0,0.4);
+      /* animation: rot 2s forwards; */
       animation-timeline: scroll();
       animation-timeline: --section-pin-tl;
     }
   }
+}
+
+.rounded{
+  transition: all 0.2s ease-in-out;
+}
+.rounded:hover{
+  transform: scale(1.2);
+  box-shadow: 11px 10px 27px 0px rgba(0,0,0,0.4);
 }
 
 @keyframes slideLeft {

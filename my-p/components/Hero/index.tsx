@@ -16,7 +16,7 @@ const LandingScreen = () => {
       int && clearInterval(int);
       textIndex = (textIndex + 1) % textSequence.length;
       letterIndex = 0;
-      //   int = changeText();
+      int = changeText();
     }, 4000);
     return () => clearTimeout(textUpdateInterval);
   }, []);
@@ -34,7 +34,7 @@ const LandingScreen = () => {
   };
 
   return (
-    <Container>
+    <Container className="font-sans select-none sm:text-2xl lg:text-7xl xl:text-7xl">
       Hi I'm {text}
       <Cursor>|</Cursor>
     </Container>
@@ -45,7 +45,6 @@ export default LandingScreen;
 
 const Container = styled.div`
   color: #fff;
-  font-family: "Arial", sans-serif;
   align-items: center;
 `;
 
