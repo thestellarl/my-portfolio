@@ -21,7 +21,7 @@ const Wrapper = styled.div<{ $mouse: { x: number; y: number } }>`
   background: rgb(83, 75, 82);
   background: radial-gradient(
     600px at ${(props) => props.$mouse.x}px ${(props) => props.$mouse.y}px,
-    #897e8726,
+    #897e8746,
     transparent 80%
   );
 `;

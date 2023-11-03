@@ -70,8 +70,13 @@ const ExperienceCard = ({
             </div>
           </div>
         </h3>
-        <p className="mt-2 text-sm leading-normal text-left">{description}</p>
-        <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
+        <p className="mt-2 text-sm leading-normal text-left text-light1">
+          {description}
+        </p>
+        <ul
+          className="mt-2 flex flex-wrap text-light1"
+          aria-label="Technologies used"
+        >
           {technologies.map((technology) => {
             return (
               <li className="mr-1.5 mt-2">

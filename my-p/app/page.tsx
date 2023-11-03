@@ -16,9 +16,9 @@ import ProfileCard from "../components/Cards/Intro";
 import ScrollIcon from "../icons/ScrollIcon";
 import Footer from "@/components/Footer";
 import LandingScreen from "@/components/Hero";
-import Image from "next/image";
 import ExperienceCard from "@/components/ExperienceCard";
 import BackgroundGradient from "@/components/Background";
+import { ProjectCard } from "@/components/ProjectCard";
 
 function App(): React.ReactNode {
   const appRef = React.useRef<HTMLDivElement>(null);
@@ -53,14 +53,19 @@ function App(): React.ReactNode {
       style={{ fontFamily: "BeVietnam-Regular" }}
       onMouseMove={(e) => setMousePosition({ x: e.clientX, y: e.clientY })}
     >
-      <div className="absolute h-9 flex space-x-8 bottom-6 z-10 fill-white max-w-screen-xl w-full md:px-12 md:py-20 lg:px-24 mx-auto">
+      <div className="absolute flex space-x-8 bottom-6 z-10 fill-white max-w-screen-xl w-full md:px-12 md:left-12 md:bottom-12 lg:left-24 mx-auto pointer-events-none">
         <a
+          className="!pointer-events-auto"
           target="_blank"
           href="https://www.linkedin.com/in/lucas-stella-28700615a/"
         >
           <LinkedInIcon dim={36} />
         </a>
-        <a target="_blank" href="https://github.com/thestellarl">
+        <a
+          className="!pointer-events-auto"
+          target="_blank"
+          href="https://github.com/thestellarl"
+        >
           <GithubIcon dim={36} />
         </a>
       </div>
@@ -148,9 +153,6 @@ function App(): React.ReactNode {
               </section>
             </div>
           </div>
-          {/* <div className="flex flex-col absolute lg:w-1/2 right-36 overflow-y-visible z-10 gap-y-14">
-            <div className="!rounded-2xl glass h-52"></div>
-          </div> */}
         </div>
       </section>
 
@@ -159,41 +161,34 @@ function App(): React.ReactNode {
         className="relative flex w-screen h-1/2 select-none"
       >
         <div className="pin-wrap-sticky">
-          <div className="pin-wrap flex items-center justify-around">
-            <div className="flex justify-center items-center group rounded w-[30vw] h-[30vw] bg-white relative hover:scale-105 transition-transform content-center">
-              <Image
-                className="hover:blur-md hover:opacity-80 transition-all"
-                src="/cs446_final.png"
-                alt="recipro screenshot"
-                width={0}
-                height={0}
-                style={{ width: "auto", height: "100%" }}
-              />
-              <h2 className="absolute text-2xl font-bold text-slate-900 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                Protein residue interaction network analysis
-              </h2>
-            </div>
-            <div className="flex justify-center items-center group rounded w-[30vw] h-[30vw] bg-white relative hover:scale-105 transition-transform content-center">
-              {/* https://stackoverflow.com/questions/65169431/how-to-set-the-next-image-component-to-100-height */}
-              <Image
-                className="hover:blur-md hover:opacity-80 transition-all"
-                src="/recipro_cropped.png"
-                sizes="100vh"
-                style={{ width: "auto", height: "100%" }}
-                width={0}
-                height={0}
-                alt="recipro screenshot"
-              />
-              <h2 className="absolute text-2xl font-bold text-slate-900 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                Recipe hosting website drawing on Node and SQL technologies
-              </h2>
-            </div>
-            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
-            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
-            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
-            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
-            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
-            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
+          <div className="pin-wrap flex items-center justify-around px-[40vw] space-x-32">
+            <ProjectCard
+              title="Protein residue interaction network analysis"
+              href="https://github.com/picodase/cs446_final"
+              image="/cs446_final.png"
+            />
+            <ProjectCard
+              title="Recipe hosting website drawing on Node and SQL technologies"
+              href="https://github.com/lpstella/recipro"
+              image="/recipro_cropped.png"
+            />
+            <ProjectCard
+              title="Drone Videography. I build and fly drones and sometimes I film
+              stuff"
+              href="https://www.instagram.com/p/CEXPzvzp5P_/"
+              image="/drone_gold_still_cropped.png"
+            />
+            <ProjectCard
+              title="Built a mobile controlled LED display utilizing the ESP8266"
+              href="https://github.com/lpstella/recipro"
+              image="/light_bar.jpg"
+            />
+            <ProjectCard
+              title="Designed a Drone based system to improve the situal awareness
+              of Airborn Wildfire Fighting efforts"
+              href="https://eecs.oregonstate.edu/project-showcase/projects/?id=HhhD4OZfTfbfwfKg"
+              image="/drone.png"
+            />
           </div>
         </div>
       </section>
@@ -201,110 +196,6 @@ function App(): React.ReactNode {
       <div className="relative flex flex-col justify-center w-screen h-screen text-6xl">
         <Footer />
       </div>
-
-      {/* <div className="page-contents" style={{ color: "#264653" }}>
-        <ProfileCard />
-        <ExperienceCard />
-
-        <PageSection>
-          <h1>Past Work</h1>
-          <div className="relative flex flex-wrap .w-10/12 .justify-center">
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="bd_logo2.png">
-                <h1 style={{ marginBottom: "5px" }}>Software Intern</h1>
-                <h5 style={{ marginTop: "0px" }}>June 2019 - Sept 2020</h5>
-                <h4>Front-End Development with ReactJS</h4>
-              </ImageItem>
-            </div>
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="osu_logo2.jpg">
-                <h1 style={{ marginBottom: "5px" }}>
-                  Computer Graphics Intern
-                </h1>
-                <h5 style={{ marginTop: "0px" }}>June 2016 - Sept 2016</h5>
-                <h4>Computer graphics programming using C++ and OpenGL</h4>
-              </ImageItem>
-            </div>
-          </div>
-        </PageSection>
-
-        <PageSection id="projects">
-          <h1>Projects</h1>
-          <div className="relative flex flex-wrap .w-10/12 .justify-center">
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="recipro_cropped.png">
-                <h4>
-                  Website built using NodeJS that utilized an SQL database
-                </h4>
-                <Button href="https://github.com/lpstella/recipro">
-                  Visit
-                </Button>
-              </ImageItem>
-            </div>
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="final_446.png">
-                <h4>Protein residue interaction network analysis</h4>
-                <Button href="https://github.com/picodase/cs446_final">
-                  Visit
-                </Button>
-              </ImageItem>
-            </div>
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="mypage_cropped.png">
-                <h4>
-                  This Website! Built using ReactJS. Still in development...
-                </h4>
-                <Button href="https://lstelladev.com">Visit</Button>
-              </ImageItem>
-            </div>
-
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="drone_gold_still_cropped.png">
-                <h4>
-                  Drone Videography. I build and fly drones and sometimes I film
-                  stuff
-                </h4>
-                <Button href="https://www.instagram.com/p/CEXPzvzp5P_/">
-                  View
-                </Button>
-              </ImageItem>
-            </div>
-
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="light_bar.jpg">
-                <h4>
-                  Built a mobile controlled LED display utilizing the ESP8266
-                </h4>
-                <Button disabled>Repo coming soon</Button>
-              </ImageItem>
-            </div>
-
-            <div className="flex w-min overflow-hidden flex-initial flex-col rounded m-4 mb-5 h-full">
-              <ImageItem height={200} src="drone.png">
-                <h4>
-                  Designed a Drone based system to improve the situal awareness
-                  of Airborn Wildfire Fighting efforts
-                </h4>
-                <Button href="https://eecs.oregonstate.edu/project-showcase/projects/?id=HhhD4OZfTfbfwfKg">
-                  View
-                </Button>
-              </ImageItem>
-            </div>
-          </div>
-          <h1>
-            Check out my{" "}
-            <CustomLink target="_blank" href="https://github.com/thestellarl">
-              GitHub
-            </CustomLink>{" "}
-            for more
-          </h1>
-        </PageSection>
-
-        <PageSection>
-          <h1>Think I'd be a good fit for your team? Reach out!</h1>
-          <Button href="mailto:stellal@oregonstate.edu">Contact Me!</Button>
-        </PageSection>
-      </div> */}
     </div>
   );
 }
@@ -317,75 +208,3 @@ export const colorTheme = {
   background: "#26465320",
   headerColor: "#a4161a",
 };
-
-// const FlexContainer = styled.div`
-//   position: relative;
-//   display: flex;
-//   flex-wrap: wrap;
-//   width: 80%;
-//   justify-content: center;
-// `;
-
-// const ContainerItem = styled.div`
-//   background-color: ${({ theme }) => theme.background};
-//   display: flex;
-//   min-width: min-content;
-//   overflow: hidden;
-//   flex: 0 1 auto;
-//   flex-direction: column;
-//   border-radius: 16px;
-//   margin: 15px 15px;
-//   margin-bottom: 25px;
-//   height: 100%;
-//   border-radius: 14px;
-// `;
-
-// const fadeIn = keyframes`
-//   from {
-//     opacity: 0;
-//     top: 20px;
-//     text-shadow: 0 0px 5px rgba(33,33,33,.5);
-//   }
-//   to {
-//     opacity: 1;
-//     top: 0px;
-//     text-shadow: 0 10px 5px rgba(33,33,33,.5);
-//   }
-// `;
-
-// const GreetingWrapper = styled.div`
-//   position: relative;
-//   opacity: 0;
-//   animation: ${fadeIn} 1.5s ease-in-out 0.5s forwards;
-// `;
-
-// const SubTitle = styled.p`
-//   font-size: 2em;
-// `;
-
-// const PageContents = styled.div`
-//   color: #264653;
-//   & > * {
-//     @media (max-width: 800px) {
-//       padding: 10% 0%;
-//     }
-//     padding: 2.5% 0%;
-//     margin: 2.5% 0%;
-//   }
-//   > :nth-child(even) {
-//     clip-path: polygon(0% 0%, 100% 5%, 100% 95%, 0% 100%);
-//   }
-
-//   > :nth-child(odd) {
-//     clip-path: polygon(0% 5%, 100% 0%, 100% 100%, 0% 95%);
-//   }
-
-//   > :first-child {
-//     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 95%);
-//     margin-top: 0;
-//   }
-//   > :last-child {
-//     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-//     margin-bottom: 0;
-//   }
-// `;
