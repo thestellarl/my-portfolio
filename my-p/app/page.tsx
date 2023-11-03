@@ -13,63 +13,16 @@ import { Button } from "../components/Button";
 import PageSection from "../components/PageSection";
 import CustomLink from "../components/StyledLink";
 import ProfileCard from "../components/Cards/Intro";
-import ExperienceCard from "../components/Cards/Experience";
 import ScrollIcon from "../icons/ScrollIcon";
 import Footer from "@/components/Footer";
 import LandingScreen from "@/components/Hero";
 import Image from "next/image";
-
-function getScrollPosition(element?: React.RefObject<HTMLDivElement>) {
-  const target = element ? element.current : document.body;
-
-  return target ? target.scrollTop : 0;
-}
-
-export function useScrollPosition(
-  effect: any,
-  deps: any[],
-  element: React.RefObject<HTMLDivElement>,
-  wait: number
-) {
-  // const position = useRef(getScrollPosition(element));
-  let throttleTimeout: any = null;
-
-  const callBack = () => {
-    const currPos = getScrollPosition(element);
-    effect(currPos);
-    // position.current = currPos;
-    throttleTimeout = null;
-  };
-
-  //   useLayoutEffect(() => {
-  //     const handleScroll = () => {
-  //       if (wait) {
-  //         if (throttleTimeout === null) {
-  //           throttleTimeout = setTimeout(callBack, wait);
-  //         }
-  //       } else {
-  //         callBack();
-  //       }
-  //     };
-  //     element.current!.addEventListener("scroll", handleScroll);
-
-  //     return () => element.current!.removeEventListener("scroll", handleScroll);
-  //   }, deps);
-}
+import ExperienceCard from "@/components/ExperienceCard";
+import BackgroundGradient from "@/components/Background";
 
 function App(): React.ReactNode {
-  // const scrollPosition = React.useRef(0);
-  const [scrollPosition, setScrollPosition] = React.useState(0);
   const appRef = React.useRef<HTMLDivElement>(null);
-
-  useScrollPosition(
-    (currPos: number) => {
-      setScrollPosition(currPos);
-    },
-    [scrollPosition],
-    appRef,
-    100
-  );
+  const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
 
   const navigationMap = {
     Home: "/#home",
@@ -98,49 +51,149 @@ function App(): React.ReactNode {
       className="App"
       ref={appRef}
       style={{ fontFamily: "BeVietnam-Regular" }}
+      onMouseMove={(e) => setMousePosition({ x: e.clientX, y: e.clientY })}
     >
-      <section className="main-page-container relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
+      <div className="absolute h-9 flex space-x-8 bottom-6 z-10 fill-white max-w-screen-xl w-full md:px-12 md:py-20 lg:px-24 mx-auto">
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/in/lucas-stella-28700615a/"
+        >
+          <LinkedInIcon dim={36} />
+        </a>
+        <a target="_blank" href="https://github.com/thestellarl">
+          <GithubIcon dim={36} />
+        </a>
+      </div>
+      <BackgroundGradient mousePosition={mousePosition} />
+      <section className="relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
         <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
-          {/* <div className="flex text-9xl font-semibold w-1/2 text-right mx-8 whitespace-normal">
-            Lucas Stella
-          </div>
-          <div className="flex text-4xl font-semibold tracking-widest text-right mx-8">
-            Software Engineer
-          </div> */}
           <div className="flex font-semibold w-1/2 text-left mx-8 whitespace-nowrap text-white font-sans">
             <LandingScreen />
           </div>
         </div>
       </section>
 
-      <section className="text-dark1 bg-light1 relative flex flex-col items-center justify-center sm:text-4xl xl:text-6xl font-semibold w-screen h-1/2 select-none">
-        Skills
-        <div className="flex carousel w-screen justify-around mt-12 flex-wrap">
-          <a className="m-5">ReactTS</a>
-          <a className="m-5">C++</a>
-          <a className="m-5">UI/UX</a>
-          <a className="m-5">CI/CD</a>
-          <a className="m-5">Git</a>
-          <a className="m-5">Agile Practices</a>
-          <a className="m-5">OOP</a>
+      <section className="flex items-center justify-center w-screen relative">
+        <div className="max-w-screen-xl w-full md:px-12 md:py-20 lg:px-24 mx-auto">
+          <div className="lg:flex lg:justify-between lg:gap-4">
+            <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
+              <div>
+                <h1 className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
+                  <a href="/">Lucas Stella</a>
+                </h1>
+              </div>
+            </header>
+            <div className="pt-24 lg:w-1/2 lg:py-24">
+              <section>
+                <ol className="group/list">
+                  <li className="mb-12">
+                    <ExperienceCard
+                      startDate="2021"
+                      endDate="present"
+                      company="Intel"
+                      position="Development Tools Engineer"
+                      description="Design and implement engineering tools to support the next generation
+                      of IPU's in collaboration with a team of developers. Contributed to a
+                      critical evaluation and revamp of team workflow while working with
+                      stakeholders to build, deliver, and test features."
+                      technologies={[
+                        "React",
+                        "TypeScript",
+                        "C++",
+                        "Agile Development",
+                        "CI/CD",
+                      ]}
+                      location="Hillsboro, OR"
+                    />
+                  </li>
+                  <li className="mb-12">
+                    <ExperienceCard
+                      startDate="June 2019"
+                      endDate="September 2020"
+                      company="Becton Dickinson"
+                      position="Software Engineering Intern"
+                      description="Collaborated with designers to build a unified front-end component library for an upcoming biomedical research tool. 
+                      Engineered legacy project file support for an existing application. 
+                      Contributed with developers to extend unit test coverage."
+                      technologies={[
+                        "React",
+                        "TypeScript",
+                        "Jest Testing",
+                        "UI/UX Design",
+                      ]}
+                      location="Ashland, OR"
+                    />
+                  </li>
+                  <li className="mb-12">
+                    <ExperienceCard
+                      startDate="September 2020"
+                      endDate="June 2021"
+                      company="Collin’s Aerospace"
+                      position="Capstone Team Lead"
+                      description="Lead a capstone project team in collaboration with Collin's Aerospace, through the development of a drone based system 
+                      to provide real time wildfire data to airborne firefighting efforts. Designed, architected and implemented a low-cost scalable 
+                      backend on AWS, user-facing frontend, and a GPU compute powered application for hotspot localization."
+                      technologies={[
+                        "Parallel Programming",
+                        "ROS",
+                        "C++",
+                        "React",
+                        "TypeScript",
+                        "AWS",
+                      ]}
+                      location="Corvallis, OR"
+                    />
+                  </li>
+                </ol>
+              </section>
+            </div>
+          </div>
+          {/* <div className="flex flex-col absolute lg:w-1/2 right-36 overflow-y-visible z-10 gap-y-14">
+            <div className="!rounded-2xl glass h-52"></div>
+          </div> */}
         </div>
       </section>
 
       <section
         id="sectionPin"
-        className="relative flex w-screen h-1/2 select-none bg-black"
+        className="relative flex w-screen h-1/2 select-none"
       >
-        <div className="pin-wrap-sticky bg-light1">
-          <div className="pin-wrap flex justify-center items-center justify-around">
-            <div className="rounded w-96 h-96 bg-white relative">
-              <Image src="/recipro_cropped.png" fill alt="recipro screenshot" />
+        <div className="pin-wrap-sticky">
+          <div className="pin-wrap flex items-center justify-around">
+            <div className="flex justify-center items-center group rounded w-[30vw] h-[30vw] bg-white relative hover:scale-105 transition-transform content-center">
+              <Image
+                className="hover:blur-md hover:opacity-80 transition-all"
+                src="/cs446_final.png"
+                alt="recipro screenshot"
+                width={0}
+                height={0}
+                style={{ width: "auto", height: "100%" }}
+              />
+              <h2 className="absolute text-2xl font-bold text-slate-900 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                Protein residue interaction network analysis
+              </h2>
             </div>
-            <div className="rounded w-96 h-96 bg-white"></div>
-            <div className="rounded w-96 h-96 bg-white"></div>
-            <div className="rounded w-96 h-96 bg-white"></div>
-            <div className="rounded w-96 h-96 bg-white"></div>
-            <div className="rounded w-96 h-96 bg-white"></div>
-            <div className="rounded w-96 h-96 bg-white"></div>
+            <div className="flex justify-center items-center group rounded w-[30vw] h-[30vw] bg-white relative hover:scale-105 transition-transform content-center">
+              {/* https://stackoverflow.com/questions/65169431/how-to-set-the-next-image-component-to-100-height */}
+              <Image
+                className="hover:blur-md hover:opacity-80 transition-all"
+                src="/recipro_cropped.png"
+                sizes="100vh"
+                style={{ width: "auto", height: "100%" }}
+                width={0}
+                height={0}
+                alt="recipro screenshot"
+              />
+              <h2 className="absolute text-2xl font-bold text-slate-900 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                Recipe hosting website drawing on Node and SQL technologies
+              </h2>
+            </div>
+            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
+            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
+            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
+            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
+            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
+            <div className="rounded w-[30vw] h-[30vw] bg-white"></div>
           </div>
         </div>
       </section>
@@ -148,22 +201,6 @@ function App(): React.ReactNode {
       <div className="relative flex flex-col justify-center w-screen h-screen text-6xl">
         <Footer />
       </div>
-
-      {/* <NavigationBar
-        scrollPosition={scrollPosition}
-        closed={false}
-        navLinks={navigationMap}
-      >
-        <a
-          target="_blank"
-          href="https://www.linkedin.com/in/lucas-stella-28700615a/"
-        >
-          <LinkedInIcon />
-        </a>
-        <a target="_blank" href="https://github.com/thestellarl">
-          <GithubIcon />
-        </a>
-      </NavigationBar> */}
 
       {/* <div className="page-contents" style={{ color: "#264653" }}>
         <ProfileCard />

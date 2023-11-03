@@ -6,13 +6,11 @@ interface INavigationBarProps {
   closed: boolean;
   navLinks: Record<string, string>;
   children?: React.ReactNode;
-  scrollPosition: number;
 }
 
 export const NavigationBar = ({
   navLinks = {},
   children,
-  scrollPosition,
 }: INavigationBarProps) => {
   const [isOpen, setIsOpen] = React.useState(true);
 
@@ -20,12 +18,11 @@ export const NavigationBar = ({
   const handleMouseLeave = () => setIsOpen(false);
 
   return (
-    <div className="pointer-events-none flex flex-col font-BeVietnam-Thin uppercase content-center w-100 bg-inherit fixed top-0 transition-all duration-200 ease-in-out h-screen z-2 text-black">
+    <div className="pointer-events-none flex font-BeVietnam-Thin content-center w-100 bg-inherit fixed top-0 transition-all duration-200 ease-in-out h-screen z-2 text-black">
       <div
-        className="flex flex-none flex-col h-1/4 items-center justify-around pointer-events-auto"
+        className="flex flex-none h-1/4 items-center justify-around pointer-events-auto"
         style={{
           transition: "margin-bottom",
-          fill: scrollPosition > 150 ? "#264653" : "#ffffff",
         }}
       >
         {children}

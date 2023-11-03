@@ -8,7 +8,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100vh;
-  background-color: hsl(202deg 24% 57%);
+  background: #2D232E;
 }
 
 * {
@@ -85,25 +85,6 @@ body{
 #home {
   background-color: #086788;
   height: 100vh;
-}
-
-
-.main-page-container {
-background-image: linear-gradient(
-  10deg,
-  hsl(125deg 25% 81%) 13%,
-  hsl(142deg 21% 77%) 51%,
-  hsl(158deg 18% 72%) 66%,
-  hsl(175deg 16% 67%) 76%,
-  hsl(190deg 18% 63%) 83%,
-  hsl(199deg 22% 59%) 88%,
-  hsl(200deg 19% 60%) 93%,
-  hsl(186deg 10% 65%) 96%,
-  hsl(107deg 6% 71%) 98%,
-  hsl(58deg 14% 74%) 100%,
-  hsl(48deg 30% 78%) 101%,
-  hsl(45deg 51% 82%) 100%
-);
 }
 
 .App > section:not(:nth-child(1)){
@@ -275,8 +256,8 @@ background-image: linear-gradient(
   transition: all 0.2s ease-in-out;
 }
 .rounded:hover{
-  transform: scale(1.2);
-  box-shadow: 11px 10px 27px 0px rgba(0,0,0,0.4);
+  /* transform: scale(1.2);
+  box-shadow: 11px 10px 27px 0px rgba(0,0,0,0.4); */
 }
 
 @keyframes slideLeft {

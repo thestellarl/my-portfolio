@@ -6,18 +6,18 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      dark1: "#2D232E",
-      dark2: "#534B52",
-      dark3: "#474448",
-      light1: "#F1F0EA",
-      light2: "#E0DDCF",
-    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      colors: {
+        dark1: "#2D232E",
+        dark2: "#534B52",
+        dark3: "#474448",
+        light1: "#F1F0EA",
+        light2: "#E0DDCF",
       },
     },
     fontFamily: {

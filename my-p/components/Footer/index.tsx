@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div
       className="justify-start text-base text-left"
-      style={{ maxWidth: "75%", backgroundColor: "#343436" }}
+      style={{ maxWidth: "75%" }}
     >
       <div className="code-row">
         <div className="inline-block mr-2 methods">const</div>
