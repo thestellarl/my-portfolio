@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'BeVietnam-Regular';
-  src: url('/fonts/BeVietnam-Regular.ttf');
+  font-family: "BeVietnam-Regular";
+  src: url("/fonts/BeVietnam-Regular.ttf");
 }
 
 .App {
@@ -8,7 +8,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100vh;
-  background: #2D232E;
+  background: #2d232e;
 }
 
 * {
@@ -27,12 +27,12 @@
 ::-webkit-scrollbar-button {
 }
 ::-webkit-scrollbar-thumb {
-  background: #5F7470;
+  background: #897e87;
   border: 0px none #ffffff;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.171);
+  background: #e0ddcf;
   border: 0px none #ffffff;
 }
 
@@ -40,9 +40,9 @@
   background: transparent;
 }
 
-body{
+body {
   overflow-y: hidden;
-  font-family: 'BeVietnam-Regular';
+  font-family: "BeVietnam-Regular";
 }
 
 .App-logo {
@@ -52,14 +52,13 @@ body{
 
 .App-header {
   display: flex;
-  
 }
 
-.fadeIn{
+.fadeIn {
   opacity: 1;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
   animation-duration: 1s;
 }
 
@@ -74,12 +73,12 @@ body{
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 #home {
@@ -87,15 +86,11 @@ body{
   height: 100vh;
 }
 
-.App > section:not(:nth-child(1)){
-  /* background-color: hsl(125deg 25% 81%); */
-}
-
 @keyframes expand {
-  0%{
+  0% {
     left: 0%;
   }
-  100%{
+  100% {
     left: -50%;
   }
 }
@@ -111,16 +106,16 @@ body{
 @keyframes reveal {
   0% {
     -webkit-transform: rotateX(-70deg);
-            transform: rotateX(-70deg);
+    transform: rotateX(-70deg);
     -webkit-transform-origin: bottom;
-            transform-origin: bottom;
+    transform-origin: bottom;
     opacity: 0;
   }
   100% {
     -webkit-transform: rotateX(0);
-            transform: rotateX(0);
+    transform: rotateX(0);
     -webkit-transform-origin: bottom;
-            transform-origin: bottom;
+    transform-origin: bottom;
     opacity: 1;
   }
 }
@@ -135,12 +130,12 @@ body{
 }
 
 @keyframes wipe-open {
-  0%{
+  0% {
     width: 0;
     opacity: 0;
     /* visibility: hidden; */
   }
-  100%{
+  100% {
     width: 100vw;
     opacity: 1;
   }
@@ -153,15 +148,15 @@ body{
 
   > * {
     text-wrap: nowrap;
-    &:hover{
+    &:hover {
       scale: 1.4;
     }
   }
 }
 
-@supports(animation-timeline: view()) {
+@supports (animation-timeline: view()) {
   @keyframes move {
-    from{
+    from {
       /* background-color: lightcoral; */
     }
     to {
@@ -174,66 +169,41 @@ body{
 
   @keyframes rot {
     entry 0% {
-      background-color: blue;
+      opacity: 1;
+    }
+    entry 50% {
+      opacity: 0;
     }
     entry 100% {
-      background-color: red;
+      opacity: 1;
     }
   }
 
-  #sectionPin {
+  #scroll-section {
     /* Stretch it out, so that we create room for the horizontal scroll animation */
-    height: 300vh;
     overflow: visible; /* To make position sticky work … */
-    view-timeline-name: --section-pin-tl;
+    view-timeline-name: --scroll-tl;
     view-timeline-axis: block;
   }
-
-  .pin-wrap-sticky {
-    /* Stick to Top */
-    height: 100vh;
-    width: 100vw;
-    position: sticky;
-    top: 0;
-
-    width: 100vw;
-    overflow-y: hidden;
-    overflow-x: hidden;
-  }
-
-  .pin-wrap {
-    height: 100vh;
-    width: fit-content;
-    /* width: 250vmax; */
-    
-    /* Hook animation */
-    will-change: transform;
-    animation: linear move forwards;
-    
-    /* Link animation to view-timeline */
-    animation-timeline: --section-pin-tl;
-    animation-range: contain 0% contain 100%;
-    > * {
-      /* box shadow */
-      box-shadow: 11px 10px 27px 0px rgba(0,0,0,0.4);
-      /* animation: rot 2s forwards; */
-      animation-timeline: scroll();
-      animation-timeline: --section-pin-tl;
-    }
-  }
 }
 
-.rounded{
+.project-card {
+  border-radius: 50px;
+  background: #2d232f;
+  box-shadow: 20px 20px 60px #261e28, -20px -20px 60px #342836;
+}
+
+.shadow {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.158) 0%,
+    rgba(0, 0, 0, 0) 5%
+  );
+}
+
+.rounded {
   transition: all 0.2s ease-in-out;
-}
-
-@keyframes slideLeft {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
 }
 
 .name-card {
@@ -242,22 +212,84 @@ body{
   animation-range: cover 0% cover 100%;
 }
 
-.code-row{
-  font-family: monospace;
+#output pre,
+#output pre mark {
+  line-height: 24px;
+  color: #fafbfb;
+}
+#output.has-highlights[data-seltreat="focus"] pre > :not(mark),
+#output.has-highlights[data-seltreat="focus"] pre :not(mark),
+#output.has-highlights[data-seltreat="focus"] pre {
+  color: #87858e;
+}
+#output.has-highlights[data-seltreat="highlight"] pre mark {
+  background-color: #425a6c;
+}
+#output::after {
+  /* to avoid background color being copied to clipboard */
+  background-color: #241e30;
 }
 
-.methods {
-  color: #314dcc;
+#output pre .token.comment,
+#output pre .token.prolog,
+#output pre .token.doctype,
+#output pre .token.cdata {
+  color: #808080;
 }
 
-.name {
-  color: #d9d050;
+#output pre .token.namespace {
+  opacity: 0.7;
 }
 
-.parens {
-  color: #d4b331;
+#output pre .token.string,
+#output pre .token.regex,
+#output pre .token.attr-value {
+  color: #ffa65c;
 }
 
-.string {
-  color: #d4853b;
+#output pre .token.punctuation {
+  color: #8be9fd;
+}
+
+#output pre .token.operator {
+  color: #8be9fd;
+}
+
+#output pre .token.entity,
+#output pre .token.url,
+#output pre .token.symbol,
+#output pre .token.number,
+#output pre .token.variable,
+#output pre .token.constant,
+#output pre .token.inserted {
+  color: #bd93f9;
+}
+
+#output pre .token.atrule,
+#output pre .token.class-name,
+#output pre .token.attr-name,
+#output pre .token.selector,
+#output pre .token.builtin {
+  color: #d65bad;
+}
+
+#output pre .token.deleted,
+#output pre .token.property,
+#output pre .token.boolean,
+#output pre .token.keyword,
+#output pre .token.tag {
+  color: #1cdec9;
+}
+
+#output pre .token.important,
+#output pre .token.metadata {
+  color: #ff8383;
+}
+
+#output pre .token.bold {
+  font-weight: bold;
+}
+
+#output pre .token.italic {
+  font-style: italic;
 }

@@ -23,6 +23,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 function App(): React.ReactNode {
   const appRef = React.useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+  const [gradientVisible, setGradientVisible] = React.useState(false);
 
   const navigationMap = {
     Home: "/#home",
@@ -31,27 +32,14 @@ function App(): React.ReactNode {
     Contact: "mailto:stellal@oregonstate.edu",
   };
 
-  // <PageSection id="home">
-  //       {/* <FloaterBackground /> */}
-  //       <div className="relative text-white" style={{ pointerEvents: "none" }}>
-  //         <h1 style={{ fontSize: "6vmax" }}>Hey there, I'm Lucas!</h1>
-  //         <div className="text-2xl" style={{ fontSize: "2vmax" }}>
-  //           I am a <b>software developer</b>, <b>avid tinkerer</b> and a{" "}
-  //           <b>dedicated problem solver</b>.
-  //         </div>
-  //         <div className="text-2xl" style={{ fontSize: "2vmax" }}>
-  //           Scroll to learn more about me!
-  //         </div>
-  //       </div>
-  //       <ScrollIcon />
-  //     </PageSection>
-
   return (
     <div
       className="App"
       ref={appRef}
       style={{ fontFamily: "BeVietnam-Regular" }}
       onMouseMove={(e) => setMousePosition({ x: e.clientX, y: e.clientY })}
+      onMouseEnter={() => setGradientVisible(true)}
+      onMouseLeave={() => setGradientVisible(false)}
     >
       <div className="absolute flex space-x-8 bottom-6 z-10 fill-white max-w-screen-xl w-full md:px-12 md:left-12 md:bottom-12 lg:left-24 mx-auto pointer-events-none">
         <a
@@ -69,7 +57,10 @@ function App(): React.ReactNode {
           <GithubIcon dim={36} />
         </a>
       </div>
-      <BackgroundGradient mousePosition={mousePosition} />
+      <BackgroundGradient
+        mousePosition={mousePosition}
+        visible={gradientVisible}
+      />
       <section className="relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
         <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
           <div className="flex font-semibold w-1/2 text-left mx-8 whitespace-nowrap text-white font-sans">
@@ -157,43 +148,59 @@ function App(): React.ReactNode {
       </section>
 
       <section
-        id="sectionPin"
-        className="relative flex w-screen h-1/2 select-none"
+        id="scroll-section"
+        className="relative flex flex-col w-screen items-center pb-32 shadow"
       >
-        <div className="pin-wrap-sticky">
-          <div className="pin-wrap flex items-center justify-around px-[40vw] space-x-32">
-            <ProjectCard
-              title="Protein residue interaction network analysis"
-              href="https://github.com/picodase/cs446_final"
-              image="/cs446_final.png"
-            />
-            <ProjectCard
-              title="Recipe hosting website drawing on Node and SQL technologies"
-              href="https://github.com/lpstella/recipro"
-              image="/recipro_cropped.png"
-            />
-            <ProjectCard
-              title="Drone Videography. I build and fly drones and sometimes I film
-              stuff"
-              href="https://www.instagram.com/p/CEXPzvzp5P_/"
-              image="/drone_gold_still_cropped.png"
-            />
-            <ProjectCard
-              title="Built a mobile controlled LED display utilizing the ESP8266"
-              href="https://github.com/lpstella/recipro"
-              image="/light_bar.jpg"
-            />
-            <ProjectCard
-              title="Designed a Drone based system to improve the situal awareness
-              of Airborn Wildfire Fighting efforts"
-              href="https://eecs.oregonstate.edu/project-showcase/projects/?id=HhhD4OZfTfbfwfKg"
-              image="/drone.png"
-            />
-          </div>
+        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse [&>*:nth-child(even)]:text-right flex flex-col gap-y-9">
+          <ProjectCard
+            title="FireWatch Aerial Guardian"
+            description="Lead a capstone project team in collaboration with Collin's Aerospace, through the development
+                  of a drone based system to provide real time wildfire data to airborne firefighting efforts. Designed, architected
+                  and implemented a low-cost scalable backend on AWS, user-facing frontend, and a GPU compute powered application
+                  for hotspot localization."
+            href="https://eecs.oregonstate.edu/project-showcase/projects/?id=HhhD4OZfTfbfwfKg"
+            image="/firewatch_sc.png"
+          />
+
+          <ProjectCard
+            title="ShopStack"
+            href="https://github.com/picodase/cs446_final"
+            image="/ShopStack_sc.png"
+            description="Designed and developed a robust system for real-time logging of serial traffic data from industrial machinery, 
+                          as well as an intuitive point-of-capture user interface. The system has since processed over 50,000 square feet of flooring production data,
+                          delivering substantial operational cost reductions that have resulted in thousands of dollars in savings for the business."
+          />
+
+          <ProjectCard
+            title="Protein residue interaction network analysis"
+            description="Analyzed the features of residue interaction networks from several homologous hemoglobin protein structures to determine relatedness"
+            href="https://github.com/picodase/cs446_final"
+            image="/cs446_final.png"
+          />
+
+          <ProjectCard
+            title="Recipe hosting website drawing on Node and SQL technologies"
+            href="https://github.com/lpstella/recipro"
+            image="/recipro_cropped.png"
+          />
+
+          <ProjectCard
+            title="Drone Videography"
+            description="I've been flying drones for over 7 years, and have experience with both DJI and FPV drones. I've worked to capture the feeling of weightlessness through freestyle and cinematic flying."
+            href="https://www.instagram.com/p/CEXPzvzp5P_/"
+            image="/drone.png"
+          />
+
+          <ProjectCard
+            title="2018 UW Undergrad Design Award"
+            description="I designed and built a smartphone controlled LED display utilizing the ESP8266 that featured CAD designed parts, 3d printed, laser cut, and vacuum formed components.
+              The project was submitted to the 2018 Maker Summit hosted at the University of Washington."
+            image="/light_bar.jpg"
+          />
         </div>
       </section>
 
-      <div className="relative flex flex-col justify-center w-screen h-screen text-6xl">
+      <div className="relative flex flex-col justify-center items-center py-48 w-screen text-6xl">
         <Footer />
       </div>
     </div>

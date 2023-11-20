@@ -31,6 +31,9 @@ module.exports = {
         "Roboto",
       ],
     },
+    gradientColorStopPositions: {
+      5: "5%",
+    },
   },
   plugins: [],
 };
