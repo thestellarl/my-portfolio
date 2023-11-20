@@ -35,7 +35,7 @@ const LandingScreen = () => {
 
   return (
     <Container className="font-sans select-none sm:text-2xl lg:text-7xl xl:text-7xl">
-      Hi I'm {text}
+      {`Hi I'm ${text}`}
       <Cursor>|</Cursor>
     </Container>
   );

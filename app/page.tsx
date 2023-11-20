@@ -1,19 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import { NavigationBar } from "../components/NavigationBar";
-import DownArrow from "../down_arrow.svg";
-import { FloaterBackground } from "../components/Boids";
 import { LinkedInIcon } from "../icons/LinkedInIcon";
 import { GithubIcon } from "../icons/GithubIcon";
-import { ImageItem } from "../components/ImageItem";
-import { Button } from "../components/Button";
-import PageSection from "../components/PageSection";
-import CustomLink from "../components/StyledLink";
-import ProfileCard from "../components/Cards/Intro";
-import ScrollIcon from "../icons/ScrollIcon";
 import Footer from "@/components/Footer";
 import LandingScreen from "@/components/Hero";
 import ExperienceCard from "@/components/ExperienceCard";
@@ -208,10 +198,3 @@ function App(): React.ReactNode {
 }
 
 export default App;
-
-export const colorTheme = {
-  primaryColor: "#5F7470",
-  secondaryColor: "#889696",
-  background: "#26465320",
-  headerColor: "#a4161a",
-};

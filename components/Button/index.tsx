@@ -20,7 +20,6 @@ export const Button = ({
       target="_blank"
       href={href}
       download={isDownload}
-      disabled={disabled}
     >
       {children}
     </a>
