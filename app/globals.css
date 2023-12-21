@@ -18,10 +18,10 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+.project-card {
+  border-radius: 50px;
+  background: linear-gradient(145deg, #302531, #292029);
+  box-shadow: 26px 26px 52px #181319, -26px -26px 52px #423343;
 }
