@@ -9,6 +9,7 @@ import LandingScreen from "@/components/Hero";
 import ExperienceCard from "@/components/ExperienceCard";
 import BackgroundGradient from "@/components/Background";
 import { ProjectCard } from "@/components/ProjectCard";
+import TinyViewport from "@/components/TinyViewport";
 
 function App(): React.ReactNode {
   const appRef = React.useRef<HTMLDivElement>(null);
@@ -187,6 +188,18 @@ function App(): React.ReactNode {
               The project was submitted to the 2018 Maker Summit hosted at the University of Washington."
             image="/light_bar.jpg"
           />
+        </div>
+      </section>
+
+      <section
+        id="scroll-section"
+        className="relative flex w-screen items-center pb-32 shadow py-24 justify-center"
+      >
+        <TinyViewport width={600} height={600} modelSrc={"enclosureLid.STL"} />
+        <div className="px-6 py-8">
+          <a href="/cad-design">
+            <h1 className="text-3xl font-bold">Checkout some of my CAD work</h1>
+          </a>
         </div>
       </section>
 
