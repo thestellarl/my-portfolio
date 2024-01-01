@@ -23,18 +23,18 @@ const ExperienceCard = ({
 }: IExperienceCardProps) => {
   return (
     <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
-      <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-dark2/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
+      <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-dark2/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg bg-color1 bg-opacity-50"></div>
       <header
-        className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-light1 sm:col-span-2"
+        className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide sm:col-span-2"
         aria-label="2018 to Present"
       >
         {startDate}-{endDate}
       </header>
       <div className="z-10 sm:col-span-6">
-        <h3 className="font-medium leading-snug text-slate-200">
+        <h3 className="font-medium leading-snug">
           <div>
             <a
-              className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-blue focus-visible:text-blue  group/link text-base"
+              className="inline-flex items-baseline font-medium leading-tight hover:text-blue focus-visible:text-blue  group/link text-base"
               href="https://upstatement.com"
               target="_blank"
               rel="noreferrer"
@@ -68,13 +68,8 @@ const ExperienceCard = ({
             </div>
           </div>
         </h3>
-        <p className="mt-2 text-sm leading-normal text-left text-light1">
-          {description}
-        </p>
-        <ul
-          className="mt-2 flex flex-wrap text-light1"
-          aria-label="Technologies used"
-        >
+        <p className="mt-2 text-sm leading-normal text-left">{description}</p>
+        <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
           {technologies.map((technology, index) => {
             return (
               <li className="mr-1.5 mt-2" key={index}>

@@ -44,7 +44,6 @@ const LandingScreen = () => {
 export default LandingScreen;
 
 const Container = styled.div`
-  color: #fff;
   align-items: center;
 `;
 

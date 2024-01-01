@@ -49,13 +49,20 @@ const Page = () => {
     <div className="flex flex-row flex-wrap justify-evenly w-full h-full py-24 gap-4">
       <section
         id="scroll-section"
-        className="relative flex flex-col w-screen items-center pb-32 shadow"
+        className="relative flex flex-col w-screen items-center"
       >
         <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse [&>*:nth-child(even)]:text-right flex flex-col gap-y-14">
+          <a className="text-color3 flex items-center" href="./">
+            <i className="bi bi-arrow-left-square text-5xl"></i>
+            <h1 className="text-xl ml-4 font-[400]">Home</h1>
+          </a>
           {modelArray.map((modelObject) => {
             const { src, title, description } = modelObject;
             return (
-              <div className="flex w-full items-center project-card overflow-hidden">
+              <div
+                key={src}
+                className="flex w-full items-center project-card overflow-hidden bg-color3 text-white"
+              >
                 <TinyViewport modelSrc={src} />
                 <div className="relative h-full">
                   <div className="px-6 py-8">
