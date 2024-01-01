@@ -41,7 +41,7 @@ const ExperienceCard = ({
               aria-label="Lead Engineer at Upstatement"
             >
               <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-              <span>
+              <span className="font-bold">
                 {`${position} · `}
                 <span className="inline-block">
                   {company}
