@@ -94,6 +94,15 @@ body {
   }
 }
 
+@keyframes colorShift {
+  0% {
+    fill: #F1F0EA;
+  }
+  100% {
+    fill: #588157;
+  }
+}
+
 .glass {
   background: rgba(255, 255, 255, 0.09);
   border-radius: 0 16px 16px 0;
@@ -202,7 +211,18 @@ body {
 .name-card {
   animation: expand linear;
   animation-timeline: scroll();
-  animation-range: cover 0% cover 100%;
+  animation-range: cover 0% cover 25%;
+}
+
+.App {
+  scroll-timeline-name: --heroTimeline;
+}
+
+.social-links {
+  animation: colorShift;
+  animation-timeline: --heroTimeline;
+  animation-range: cover 0% cover 10%;
+  animation-fill-mode: forwards;
 }
 
 #output pre,

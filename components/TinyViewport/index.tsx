@@ -118,7 +118,6 @@ const Wrapper = styled.div<{ $width: number; $height: number }>`
   width: ${({ $width }) => $width}px;
   height: ${({ $height }) => $height}px;
   background: lightblue;
-  border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
 `;
