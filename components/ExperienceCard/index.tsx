@@ -10,6 +10,7 @@ interface IExperienceCardProps {
   endDate: string;
   description: string;
   technologies: string[];
+  link: string;
 }
 
 const ExperienceCard = ({
@@ -20,6 +21,7 @@ const ExperienceCard = ({
   endDate,
   description,
   technologies,
+  link,
 }: IExperienceCardProps) => {
   return (
     <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
@@ -35,7 +37,7 @@ const ExperienceCard = ({
           <div>
             <a
               className="inline-flex items-baseline font-medium leading-tight hover:text-blue focus-visible:text-blue  group/link text-base"
-              href="https://upstatement.com"
+              href={link}
               target="_blank"
               rel="noreferrer"
               aria-label="Lead Engineer at Upstatement"
