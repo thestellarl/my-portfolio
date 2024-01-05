@@ -1,3 +1,5 @@
+"use client";
+
 import TinyViewport from "@/components/TinyViewport";
 import React from "react";
 
