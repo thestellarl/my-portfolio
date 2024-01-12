@@ -1,7 +1,7 @@
 import { GithubIcon } from "@/icons/GithubIcon";
 import { ImageResponse } from "next/server";
 
-import { profile } from "@/public/images";
+import { profile, drone } from "@/public/images";
 
 // Route segment config
 export const runtime = "edge";
@@ -17,6 +17,14 @@ export const contentType = "image/png";
 
 // Image generation
 export default async function Image() {
+  const url = (
+    process.env.VERCEL_URL
+      ? new URL(profile.src, `https://${process.env.VERCEL_URL}`)
+      : new URL(profile.src, `http://localhost:${process.env.PORT || 3000}`)
+  ).toString();
+
+  const image = await fetch(url).then((res) => res.arrayBuffer());
+
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -95,18 +103,8 @@ export default async function Image() {
             overflow: "hidden",
           }}
         >
-          <img
-            src={(process.env.VERCEL_URL
-              ? new URL(profile.src, `https://${process.env.VERCEL_URL}`)
-              : new URL(
-                  profile.src,
-                  `http://localhost:${process.env.PORT || 3000}`
-                )
-            ).toString()}
-            alt="Profile"
-            width={400}
-            height={400}
-          />
+          {/* @ts-ignore */}
+          <img src={image} alt="Profile" width={400} height={400} />
         </div>
       </div>
     ),
