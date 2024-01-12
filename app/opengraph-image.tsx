@@ -19,8 +19,11 @@ export const contentType = "image/png";
 export default async function Image() {
   const url = (
     process.env.VERCEL_URL
-      ? new URL(profile.src, `https://${process.env.VERCEL_URL}`)
-      : new URL(profile.src, `http://localhost:${process.env.PORT || 3000}`)
+      ? new URL("/images/profile.jpg", `https://${process.env.VERCEL_URL}`)
+      : new URL(
+          "/images/profile.jpg",
+          `http://localhost:${process.env.PORT || 3000}`
+        )
   ).toString();
 
   return new ImageResponse(
