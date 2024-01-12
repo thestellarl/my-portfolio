@@ -96,7 +96,13 @@ export default async function Image() {
           }}
         >
           <img
-            src={"http://localhost:3000/" + profile.src}
+            src={(process.env.VERCEL_URL
+              ? new URL(profile.src, `https://${process.env.VERCEL_URL}`)
+              : new URL(
+                  profile.src,
+                  `http://localhost:${process.env.PORT || 3000}`
+                )
+            ).toString()}
             alt="Profile"
             width={400}
             height={400}
