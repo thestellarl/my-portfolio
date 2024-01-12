@@ -1,12 +1,12 @@
 import React from "react";
 
-export const GithubIcon = ({ dim }: { dim: number }) => {
+export const GithubIcon = ({ dim, fill }: { dim: number; fill?: string }) => {
   return (
     <svg
       width={dim}
       height={dim}
       viewBox="0 0 48 48"
-      fill="inherit"
+      fill={fill}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

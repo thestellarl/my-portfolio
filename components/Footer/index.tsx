@@ -4,8 +4,9 @@ import React from "react";
 const Footer = () => {
   return (
     <div
+    style={{display: 'flex'}}
       id="output"
-      className="max-w-screen-xl justify-start text-base text-left w-full"
+      className="flex max-w-screen-xl justify-start text-base text-left w-full"
     >
     <pre className="prettyprint leading-3">
 <span className="token keyword">const</span> <span className="token function-variable function"><span className="token maybe-className-name">LucasStella</span></span> <span className="token operator">=</span> <span className="token punctuation">(</span><span className="token punctuation">)</span> <span className="token arrow operator">=&gt;</span> <span className="token punctuation">{"{"}</span><br />
