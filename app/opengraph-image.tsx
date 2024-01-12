@@ -104,8 +104,7 @@ export default async function Image() {
             overflow: "hidden",
           }}
         >
-          {/* @ts-ignore */}
-          <img src={image} alt="Profile" width={400} height={400} />
+          <img src={url} alt="Profile" width={400} height={400} />
         </div>
       </div>
     ),
