@@ -22,6 +22,7 @@ export default async function Image() {
       ? new URL(profile.src, `https://${process.env.VERCEL_URL}`)
       : new URL(profile.src, `http://localhost:${process.env.PORT || 3000}`)
   ).toString();
+  console.log(url);
 
   const image = await fetch(url).then((res) => res.arrayBuffer());
 
