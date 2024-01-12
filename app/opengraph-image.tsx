@@ -19,16 +19,13 @@ export const contentType = "image/png";
 export default async function Image() {
   const url = (
     process.env.VERCEL_URL
-      ? new URL("/images/profile.jpg", `https://${process.env.VERCEL_URL}`)
+      ? new URL("https://lstelladev.com/images/profile.jpg")
       : new URL(
           "/images/profile.jpg",
           `http://localhost:${process.env.PORT || 3000}`
         )
   ).toString();
 
-  const imageBuffer = await fetch(url).then((res) => res.arrayBuffer());
-  const imageBlob = new Blob([imageBuffer]);
-  const imageUrl = URL.createObjectURL(imageBlob);
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -107,7 +104,7 @@ export default async function Image() {
             overflow: "hidden",
           }}
         >
-          <img src={imageUrl} alt="Profile" width={400} height={400} />
+          <img src={url} alt="Profile" width={400} height={400} />
         </div>
       </div>
     ),
