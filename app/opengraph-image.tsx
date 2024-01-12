@@ -1,8 +1,6 @@
 import { GithubIcon } from "@/icons/GithubIcon";
 import { ImageResponse } from "next/server";
 
-import { profile, drone } from "@/public/images";
-
 // Route segment config
 export const runtime = "edge";
 
@@ -14,7 +12,7 @@ export const size = {
 };
 
 export const contentType = "image/png";
-
+export const dynamic = "force-dynamic";
 // Image generation
 export default async function Image() {
   const url = (
