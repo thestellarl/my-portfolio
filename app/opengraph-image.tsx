@@ -26,8 +26,9 @@ export default async function Image() {
         )
   ).toString();
 
-  const image = await fetch(url).then((res) => res.arrayBuffer());
-
+  const imageBuffer = await fetch(url).then((res) => res.arrayBuffer());
+  const imageBlob = new Blob([imageBuffer]);
+  const imageUrl = URL.createObjectURL(imageBlob);
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -106,8 +107,7 @@ export default async function Image() {
             overflow: "hidden",
           }}
         >
-          {/* @ts-ignore */}
-          <img src={image} alt="Profile" width={400} height={400} />
+          <img src={imageUrl} alt="Profile" width={400} height={400} />
         </div>
       </div>
     ),
