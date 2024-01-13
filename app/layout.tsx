@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Portfolio - Lucas Stella",
   description: "Software Engineering Portfolio of Lucas Stella",
+  metadataBase: new URL("https://lstelladev.com"),
 };
 
 export default function RootLayout({
