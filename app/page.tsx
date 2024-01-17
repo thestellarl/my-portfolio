@@ -154,7 +154,7 @@ function App(): React.ReactNode {
         id="scroll-section"
         className="relative flex flex-col w-screen items-center pb-32 shadow"
       >
-        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse [&>*:nth-child(even)]:text-right flex flex-col gap-y-9 px-5">
+        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse md:[&>*:nth-child(even)]:text-right flex flex-col gap-y-9 px-5">
           <ProjectCard
             title="FireWatch Aerial Guardian"
             description="Lead a capstone project team in collaboration with Collin's Aerospace, through the development
