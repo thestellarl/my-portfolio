@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --background: #efefef;
-  --color-1: #A4C3B2;
+  --color-1: #a4c3b2;
   --color-1-text: #000000;
-  --color-2: #3A5A40;
-  --color-2-text: #FFFFFF;
+  --color-2: #3a5a40;
+  --color-2-text: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,11 +23,4 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-}
-
-.project-card {
-  border-radius: 50px;
-  /* background: var(--color-2); */
-/* box-shadow:  29px 29px 57px #dcdcdc,
-             -29px -29px 57px #ffffff; */
 }

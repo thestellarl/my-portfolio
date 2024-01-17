@@ -49,7 +49,7 @@ function App(): React.ReactNode {
       onMouseEnter={() => setGradientVisible(true)}
       onMouseLeave={() => setGradientVisible(false)}
     >
-      <div className="social-links absolute flex space-x-8 bottom-6 z-10 max-w-screen-xl w-full md:px-12 md:left-12 md:bottom-12 lg:left-24 mx-auto">
+      <div className="social-links absolute flex space-x-8 bottom-6 z-10 max-w-screen-xl w-full md:px-12 left-8 md:left-12 md:bottom-12 lg:left-24 mx-auto">
         <a
           className=""
           target="_blank"
@@ -61,10 +61,6 @@ function App(): React.ReactNode {
           <GithubIcon dim={36} />
         </a>
       </div>
-      {/* <BackgroundGradient
-        mousePosition={mousePosition}
-        visible={gradientVisible}
-      /> */}
       <section className="bg-color1 relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
         <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
           <div className="flex font-semibold w-1/2 text-left mx-8 whitespace-nowrap text-color3 font-sans">
@@ -83,7 +79,7 @@ function App(): React.ReactNode {
                 </h1>
               </div>
             </header>
-            <div className="pt-24 lg:w-1/2 lg:py-24 text-color3">
+            <div className="pt-24 lg:w-1/2 lg:py-24 text-color3 px-5">
               <section>
                 <ol className="group/list">
                   <li className="mb-12">
@@ -158,7 +154,7 @@ function App(): React.ReactNode {
         id="scroll-section"
         className="relative flex flex-col w-screen items-center pb-32 shadow"
       >
-        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse [&>*:nth-child(even)]:text-right flex flex-col gap-y-9">
+        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse [&>*:nth-child(even)]:text-right flex flex-col gap-y-9 px-5">
           <ProjectCard
             title="FireWatch Aerial Guardian"
             description="Lead a capstone project team in collaboration with Collin's Aerospace, through the development

@@ -17,7 +17,7 @@ const LandingScreen = () => {
       textIndex = (textIndex + 1) % textSequence.length;
       letterIndex = 0;
       int = changeText();
-    }, 4000);
+    }, 3000);
     return () => clearTimeout(textUpdateInterval);
   }, []);
 
