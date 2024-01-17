@@ -10,6 +10,12 @@ export const metadata = {
   title: "Portfolio - Lucas Stella",
   description: "Software Engineering Portfolio of Lucas Stella",
   metadataBase: new URL("https://lstelladev.com"),
+  openGraph: {
+    title: "Portfolio - Lucas Stella",
+    description: "Software Engineering Portfolio of Lucas Stella",
+    url: new URL("/", "https://lstelladev.com"),
+    type: "website",
+  },
 };
 
 export default function RootLayout({
