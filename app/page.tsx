@@ -49,7 +49,7 @@ function App(): React.ReactNode {
       onMouseEnter={() => setGradientVisible(true)}
       onMouseLeave={() => setGradientVisible(false)}
     >
-      <div className="social-links absolute flex space-x-8 bottom-6 z-10 max-w-screen-xl w-full md:px-12 left-8 md:left-12 md:bottom-12 lg:left-24 mx-auto">
+      <div className="social-links absolute flex space-x-8 bottom-6 z-10 max-w-screen-xl md:px-12 left-8 md:left-12 md:bottom-12 lg:left-24 mx-auto">
         <a
           className=""
           target="_blank"
