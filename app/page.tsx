@@ -84,8 +84,29 @@ function App(): React.ReactNode {
                 <ol className="group/list">
                   <li className="mb-12">
                     <ExperienceCard
-                      startDate="2021"
+                      startDate="2024"
                       endDate="present"
+                      company="Becton Dickinson"
+                      position="Senior Test Automation Engineer"
+                      description="Optimized testing efficiency, playing a key role in reducing testing time by
+                      50% through strategic improvements. Refactored substantial portions of the Page Object Model
+                      (POM) code, leveraging advanced typing strategies in TypeScript to improve code quality and maintainability. 
+                      Utilized TypeScript in a behavior-driven design testing approach, employing Gherkin,
+                      Cucumber-JS, and Playwright frameworks"
+                      technologies={[
+                        "React",
+                        "TypeScript",
+                        "C++",
+                        "Agile Development",
+                        "CI/CD",
+                      ]}
+                      location="Hillsboro, OR"
+                    />
+                  </li>
+                  <li className="mb-12">
+                    <ExperienceCard
+                      startDate="2021"
+                      endDate="2024"
                       company="Intel"
                       position="Development Tools Engineer"
                       description="Design and implement engineering tools to support the next generation
