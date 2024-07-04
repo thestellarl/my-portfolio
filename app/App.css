@@ -268,7 +268,7 @@ body {
 #output pre .token.string,
 #output pre .token.regex,
 #output pre .token.attr-value {
-  color: #ffa65c;
+  color: #F08700;
 }
 
 #output pre .token.punctuation {
@@ -286,7 +286,7 @@ body {
 #output pre .token.variable,
 #output pre .token.constant,
 #output pre .token.inserted {
-  color: #bd93f9;
+  color: #B07BAC;
 }
 
 #output pre .token.atrule,
