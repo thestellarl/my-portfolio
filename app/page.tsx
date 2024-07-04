@@ -78,19 +78,6 @@ function App(): React.ReactNode {
                   <a href="/">Lucas Stella</a>
                 </h1>
               </div>
-              <div className="h-full">
-                <ul className="h-[300%] flex flex-col header-scroll relative">
-                  <li className="basis-full flex items-center">
-                    Software Quality Assurance
-                  </li>
-                  <li className="basis-full flex items-center">
-                    Software Quality Assurance
-                  </li>
-                  <li className="basis-full flex items-center">
-                    Software Quality Assurance
-                  </li>
-                </ul>
-              </div>
             </header>
             <div className="pt-24 lg:w-1/2 lg:py-24 text-color3 px-5 experience-container">
               <section>

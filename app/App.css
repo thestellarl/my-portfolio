@@ -172,35 +172,26 @@ body {
 }
 
 @supports (animation-timeline: view()) {
-  @keyframes move {
-    from {
-      /* background-color: lightcoral; */
+  @keyframes fadeIn {
+    0%, 100% {
+       /* lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg */
+       stroke-dashoffset: 0%;
     }
-    to {
-      /* Move horizontally so that right edge is aligned against the viewport */
-      /* transform: translateX(calc(-100% + 100vw)); */
-      /* background-color: lightblue; */
-      transform: translateX(calc(-100% + 100vw));
+    30%, 70% {
+      opacity: 1;
+      stroke-dashoffset: 100%;
+      transform: translateX(0%);
+    }
+    50% {
+      transform: translateX(-10%);
     }
   }
 
-  @keyframes rot {
-    entry 0% {
-      opacity: 1;
+  @media (min-width: 1024px){
+    .exp {
+      animation: fadeIn ease-in-out;
+      animation-timeline: view();
     }
-    entry 50% {
-      opacity: 0;
-    }
-    entry 100% {
-      opacity: 1;
-    }
-  }
-
-  #scroll-section {
-    /* Stretch it out, so that we create room for the horizontal scroll animation */
-    overflow: visible; /* To make position sticky work … */
-    view-timeline-name: --scroll-tl;
-    view-timeline-axis: block;
   }
 }
 
