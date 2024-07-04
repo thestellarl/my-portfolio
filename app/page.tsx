@@ -78,8 +78,21 @@ function App(): React.ReactNode {
                   <a href="/">Lucas Stella</a>
                 </h1>
               </div>
+              <div className="h-full">
+                <ul className="h-[300%] flex flex-col header-scroll relative">
+                  <li className="basis-full flex items-center">
+                    Software Quality Assurance
+                  </li>
+                  <li className="basis-full flex items-center">
+                    Software Quality Assurance
+                  </li>
+                  <li className="basis-full flex items-center">
+                    Software Quality Assurance
+                  </li>
+                </ul>
+              </div>
             </header>
-            <div className="pt-24 lg:w-1/2 lg:py-24 text-color3 px-5">
+            <div className="pt-24 lg:w-1/2 lg:py-24 text-color3 px-5 experience-container">
               <section>
                 <ol className="group/list">
                   <li className="mb-12">
@@ -88,7 +101,7 @@ function App(): React.ReactNode {
                       endDate="present"
                       company="Becton Dickinson"
                       position="Senior Test Automation Engineer"
-                      description="Optimized testing efficiency, playing a key role in reducing testing time by
+                      description="Optimized testing efficiency, playing a key role in reducing test duration by
                       50% through strategic improvements. Refactored substantial portions of the Page Object Model
                       (POM) code, leveraging advanced typing strategies in TypeScript to improve code quality and maintainability. 
                       Utilized TypeScript in a behavior-driven design testing approach, employing Gherkin,
@@ -100,7 +113,8 @@ function App(): React.ReactNode {
                         "Agile Development",
                         "CI/CD",
                       ]}
-                      location="Hillsboro, OR"
+                      location="Ashland, OR"
+                      link="https://www.flowjo.com/"
                     />
                   </li>
                   <li className="mb-12">

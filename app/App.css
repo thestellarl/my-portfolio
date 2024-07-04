@@ -94,6 +94,15 @@ body {
   }
 }
 
+@keyframes scroll {
+  0% {
+    margin-top: 0
+  }
+  100% {
+    margin-top: -300%;
+  }
+}
+
 @keyframes colorShift {
   0% {
     fill: #F1F0EA;
@@ -212,6 +221,17 @@ body {
   animation: expand linear;
   animation-timeline: scroll();
   animation-range: cover 0% cover 25%;
+}
+
+.experience-container {
+  scroll-timeline-name: --experience;
+}
+
+.header-scroll {
+  animation: scroll linear;
+  animation-timeline: --experience;
+  animation-timeline: scroll();
+  animation-range: cover 0% cover 100%;
 }
 
 .App {
