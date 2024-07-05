@@ -46,7 +46,7 @@ function App(): React.ReactNode {
         </a>
       </div>
       <section className="bg-color1 relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
-        <div className="absolute right-[5%] invisible lg:!visible">
+        <div className="absolute right-[25%] invisible lg:!visible">
           <Footer />
         </div>
         <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
