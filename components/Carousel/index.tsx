@@ -8,13 +8,13 @@ interface ICarouselProps {
 }
 
 export const Carousel = ({children, spacing = 25}: ICarouselProps) => {
-    return(
-        <CarouselWrapper>
-            {React.Children.map( children, child => 
-                <Paper color={"black"}>{child}</Paper>
-            )}
-        </CarouselWrapper>
-    );
+  return(
+    <CarouselWrapper>
+      {React.Children.map( children, child => 
+        <Paper color={"black"}>{child}</Paper>
+      )}
+    </CarouselWrapper>
+  );
 }
 
 const CarouselWrapper = styled.div`

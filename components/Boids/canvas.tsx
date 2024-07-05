@@ -8,14 +8,14 @@ interface BoidCanvasProps {
 }
 
 const BoidCanvas = ({ settingsRef, canvasRef }: BoidCanvasProps) => {
-    return(
-        <StyledCanvas 
-        id="canvas"
-        ref={canvasRef}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        // onMouseMove={handleMouseOver}
-        />);
+  return(
+    <StyledCanvas 
+      id="canvas"
+      ref={canvasRef}
+      width={window.innerWidth}
+      height={window.innerHeight}
+      // onMouseMove={handleMouseOver}
+    />);
 }
 
 export default BoidCanvas;

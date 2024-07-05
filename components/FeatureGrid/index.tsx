@@ -7,11 +7,11 @@ interface IFeatureGridProps {
 };
 
 export const FeatureGrid = ({ children }: IFeatureGridProps) => {
-    return(
-        <Wrapper>
-            {children}
-        </Wrapper>
-    );
+  return(
+    <Wrapper>
+      {children}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`

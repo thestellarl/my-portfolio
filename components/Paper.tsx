@@ -8,11 +8,11 @@ interface IPaperProps {
 
 export const Paper = ({children, color}: IPaperProps) => {
 
-    return(
-        <PaperWrapper color={color}>
-            {children}
-        </PaperWrapper>
-    );
+  return(
+    <PaperWrapper color={color}>
+      {children}
+    </PaperWrapper>
+  );
 }
 
 const PaperWrapper = styled.div`
