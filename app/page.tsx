@@ -46,7 +46,7 @@ function App(): React.ReactNode {
         </a>
       </div>
       <section className="bg-color1 relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
-        <div className="absolute right-[25%] invisible lg:!visible">
+        <div className="absolute right-0 invisible lg:!visible bg-color3 rounded-lg p-20">
           <Footer />
         </div>
         <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
@@ -179,7 +179,7 @@ function App(): React.ReactNode {
             href="https://github.com/picodase/cs446_final"
             image={shopstack}
             description="Designed and developed a robust system for real-time logging of serial traffic data from industrial machinery, 
-                          as well as an intuitive point-of-capture user interface.\n The system has since processed over 50,000 square feet of flooring production data,
+                          as well as an intuitive point-of-capture user interface. The system has since processed over 50,000 square feet of flooring production data,
                           delivering substantial operational cost reductions that have resulted in thousands of dollars in savings for the business."
           />
 
