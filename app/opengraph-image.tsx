@@ -1,8 +1,8 @@
 import { GithubIcon } from "@/icons/GithubIcon";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
-// Route segment config
-export const runtime = "edge";
+// Route segment config for static export
+export const dynamic = "force-static";
 
 // Image metadata
 export const alt = "Lucas Stella Portfolio";
@@ -12,17 +12,9 @@ export const size = {
 };
 
 export const contentType = "image/png";
-export const dynamic = "force-dynamic";
 // Image generation
 export default async function Image() {
-  const url = (
-    process.env.VERCEL_URL
-      ? new URL("https://lstelladev.com/images/profile.jpg")
-      : new URL(
-          "/images/profile.jpg",
-          `http://localhost:${process.env.PORT || 3000}`
-        )
-  ).toString();
+  const url = "https://lstelladev.com/images/profile.jpg";
 
   return new ImageResponse(
     (

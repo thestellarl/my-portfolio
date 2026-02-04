@@ -12,13 +12,7 @@ const BackgroundGradient = ({
   mousePosition,
   visible,
 }: IBackgroundGradientProps) => {
-  return (
-    <Wrapper
-      className="z-30 pointer-events-none"
-      $mouse={mousePosition}
-      $visible={visible}
-    />
-  );
+  return <Wrapper $mouse={mousePosition} $visible={visible} />;
 };
 
 const Wrapper = styled.div<{
@@ -30,6 +24,8 @@ const Wrapper = styled.div<{
   height: 100%;
   width: 100%;
   position: absolute;
+  z-index: 30;
+  pointer-events: none;
   background: rgb(83, 75, 82);
   background: radial-gradient(
     600px at ${(props) => props.$mouse.x}px ${(props) => props.$mouse.y}px,
