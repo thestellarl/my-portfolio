@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 
 interface TinyViewportProps {
   height?: number;
