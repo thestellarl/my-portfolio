@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { YouTubeEmbed } from '@next/third-parties/google'
 import type { PortableTextComponents } from 'next-sanity'
 
 import { urlFor } from '../../sanity/lib/image'
@@ -98,6 +99,59 @@ export const portableTextComponents: PortableTextComponents = {
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
+          {value.caption ? (
+            <figcaption className="mt-2 text-center text-sm text-color3/70">
+              {value.caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      )
+    },
+    instagram: ({ value }) => {
+      const url: string | undefined = value?.url
+      if (!url) return null
+      // Matches https://(www.)instagram.com/{p|reel|tv}/{shortcode}/...
+      const match = url.match(
+        /^https?:\/\/(?:www\.)?instagram\.com\/(p|reel|tv)\/([^/?#]+)/,
+      )
+      if (!match) return null
+      const [, kind, shortcode] = match
+      const embedSrc = `https://www.instagram.com/${kind}/${shortcode}/embed/`
+      return (
+        <figure className="my-8 flex flex-col items-center">
+          <div className="w-full max-w-[540px] overflow-hidden rounded-lg border border-color3/10 bg-light2 shadow-md">
+            <iframe
+              src={embedSrc}
+              title={value.caption ?? 'Instagram post'}
+              className="block h-[720px] w-full"
+              loading="lazy"
+              scrolling="no"
+              allow="encrypted-media"
+              allowFullScreen
+            />
+          </div>
+          {value.caption ? (
+            <figcaption className="mt-2 text-center text-sm text-color3/70">
+              {value.caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      )
+    },
+    youtube: ({ value }) => {
+      const url: string | undefined = value?.url
+      if (!url) return null
+      // Matches the video id from watch?v=, youtu.be/, /embed/, or /shorts/ URLs
+      const match = url.match(
+        /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]+)/,
+      )
+      if (!match) return null
+      const [, id] = match
+      return (
+        <figure className="my-8 flex flex-col items-center">
+          <div className="w-full overflow-hidden rounded-lg border border-color3/10 bg-light2 shadow-md [&_lite-youtube]:max-w-full">
+            <YouTubeEmbed videoid={id} params="rel=0" />
+          </div>
           {value.caption ? (
             <figcaption className="mt-2 text-center text-sm text-color3/70">
               {value.caption}

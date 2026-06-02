@@ -11,6 +11,16 @@ export const postsQuery = groq`
   }
 `
 
+export const latestPostsQuery = groq`
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc)[0...3] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    excerpt
+  }
+`
+
 export const postSlugsQuery = groq`
   *[_type == "post" && defined(slug.current)][].slug.current
 `

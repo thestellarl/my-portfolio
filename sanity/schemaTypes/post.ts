@@ -38,6 +38,80 @@ export const post = defineType({
       of: [
         {type: 'block'},
         {type: 'image', options: {hotspot: true}},
+        {
+          type: 'object',
+          name: 'instagram',
+          title: 'Instagram post',
+          fields: [
+            defineField({
+              name: 'url',
+              title: 'Post URL',
+              type: 'url',
+              description:
+                'Public Instagram post, reel, or IGTV URL (e.g. https://www.instagram.com/p/ABC123/)',
+              validation: (rule) =>
+                rule
+                  .required()
+                  .uri({scheme: ['http', 'https']})
+                  .custom((value) => {
+                    if (!value) return true
+                    return /^https?:\/\/(www\.)?instagram\.com\/(p|reel|tv)\/[^/?#]+/.test(
+                      value,
+                    )
+                      ? true
+                      : 'Must be an instagram.com /p/, /reel/, or /tv/ URL'
+                  }),
+            }),
+            defineField({
+              name: 'caption',
+              title: 'Caption (optional)',
+              type: 'string',
+            }),
+          ],
+          preview: {
+            select: {title: 'url', subtitle: 'caption'},
+            prepare({title, subtitle}) {
+              return {title: subtitle || 'Instagram post', subtitle: title}
+            },
+          },
+        },
+        {
+          type: 'object',
+          name: 'youtube',
+          title: 'YouTube video',
+          fields: [
+            defineField({
+              name: 'url',
+              title: 'Video URL',
+              type: 'url',
+              description:
+                'YouTube watch, share, or Shorts URL (e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ)',
+              validation: (rule) =>
+                rule
+                  .required()
+                  .uri({scheme: ['http', 'https']})
+                  .custom((value) => {
+                    if (!value) return true
+                    return /^https?:\/\/(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)[\w-]+/.test(
+                      value,
+                    )
+                      ? true
+                      : 'Must be a youtube.com or youtu.be video URL'
+                  }),
+            }),
+            defineField({
+              name: 'caption',
+              title: 'Caption (optional)',
+              type: 'string',
+            }),
+          ],
+          preview: {
+            select: {title: 'url', subtitle: 'caption'},
+            prepare({title, subtitle}) {
+              return {title: subtitle || 'YouTube video', subtitle: title}
+            },
+          },
+        },
       ],
     }),
   ],
