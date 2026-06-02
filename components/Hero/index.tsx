@@ -3,9 +3,15 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
+const textSequence = ["Lucas", "a Software Engineer", "a Frontend Developer"];
+// Pick the longest entry so the container reserves space for the widest line and
+// the trailing cursor stays put as text is typed in/out.
+const longestText = textSequence.reduce(
+  (a, b) => (b.length > a.length ? b : a),
+  textSequence[0],
+);
+
 const LandingScreen = () => {
-  const textSequence = ["Lucas", "a Software Engineer", "a Frontend Developer"];
-  let currentText = "";
   let textIndex = 0;
   let letterIndex = 0;
   const [text, setText] = useState(textSequence[0]);
@@ -35,8 +41,13 @@ const LandingScreen = () => {
 
   return (
     <Container className="font-sans select-none sm:text-2xl lg:text-7xl xl:text-7xl">
-      {`Hi I'm ${text}`}
-      <Cursor>|</Cursor>
+      {/* Invisible sizer fixes the container width to the longest line; the
+          visible text+cursor overlay it so the cursor never shifts. */}
+      <Sizer aria-hidden="true">{`Hi I'm ${longestText}`}</Sizer>
+      <Visible>
+        {`Hi I'm ${text}`}
+        <Cursor>|</Cursor>
+      </Visible>
     </Container>
   );
 };
@@ -44,7 +55,20 @@ const LandingScreen = () => {
 export default LandingScreen;
 
 const Container = styled.div`
+  position: relative;
+  display: inline-block;
   align-items: center;
+`;
+
+const Sizer = styled.span`
+  visibility: hidden;
+  white-space: pre;
+`;
+
+const Visible = styled.span`
+  position: absolute;
+  inset: 0;
+  white-space: pre;
 `;
 
 const blink = keyframes`
