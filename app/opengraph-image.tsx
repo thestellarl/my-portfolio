@@ -1,5 +1,7 @@
 import { GithubIcon } from "@/icons/GithubIcon";
 import { ImageResponse } from "next/og";
+import { join } from "node:path";
+import { readFile } from "node:fs/promises";
 
 // Route segment config for static export
 export const dynamic = "force-static";
@@ -14,7 +16,13 @@ export const size = {
 export const contentType = "image/png";
 // Image generation
 export default async function Image() {
-  const url = "https://lstelladev.com/images/profile.jpg";
+  // Embed the local profile photo so the build doesn't depend on the live
+  // site serving /images/profile.jpg over the network at build time.
+  const profileData = await readFile(
+    join(process.cwd(), "public/images/profile.jpg"),
+    "base64"
+  );
+  const url = `data:image/jpeg;base64,${profileData}`;
 
   return new ImageResponse(
     (

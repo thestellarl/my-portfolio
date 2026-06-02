@@ -31,6 +31,55 @@ export const post = defineType({
       name: 'coverImage',
       type: 'image',
       options: {hotspot: true},
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          description: 'Describes the image for screen readers and SEO.',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO & Social Sharing',
+      type: 'object',
+      options: {collapsible: true, collapsed: true},
+      fields: [
+        defineField({
+          name: 'metaTitle',
+          title: 'Meta title',
+          type: 'string',
+          description:
+            'Overrides the page <title> and og:title. Falls back to the post title.',
+          validation: (rule) => rule.max(60).warning('Best kept under 60 characters'),
+        }),
+        defineField({
+          name: 'metaDescription',
+          title: 'Meta description',
+          type: 'text',
+          rows: 3,
+          description:
+            'Overrides the meta description and og:description. Falls back to the excerpt.',
+          validation: (rule) =>
+            rule.max(160).warning('Best kept under 160 characters'),
+        }),
+        defineField({
+          name: 'ogImage',
+          title: 'Social share image',
+          type: 'image',
+          options: {hotspot: true},
+          description:
+            'Overrides the share image (1200×630 recommended). Falls back to the cover image.',
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alternative text',
+              type: 'string',
+            }),
+          ],
+        }),
+      ],
     }),
     defineField({
       name: 'body',

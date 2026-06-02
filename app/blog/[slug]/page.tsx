@@ -15,6 +15,11 @@ type Post = {
   publishedAt: string
   excerpt?: string
   coverImage?: SanityImageSource & { alt?: string }
+  seo?: {
+    metaTitle?: string
+    metaDescription?: string
+    ogImage?: SanityImageSource & { alt?: string }
+  }
   body?: PortableTextBlock[]
 }
 
@@ -31,9 +36,36 @@ export async function generateMetadata({
   const { slug } = await params
   const post = await client.fetch<Post | null>(postBySlugQuery, { slug })
   if (!post) return {}
+
+  const title = post.seo?.metaTitle ?? post.title
+  const description = post.seo?.metaDescription ?? post.excerpt
+
+  const ogImageSource = post.seo?.ogImage ?? post.coverImage
+  const ogImage = ogImageSource
+    ? urlFor(ogImageSource).width(1200).height(630).fit('crop').auto('format').url()
+    : undefined
+  const imageAlt = ogImageSource?.alt ?? title
+  const images = ogImage
+    ? [{ url: ogImage, width: 1200, height: 630, alt: imageAlt }]
+    : undefined
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: `/blog/${post.slug}`,
+      publishedTime: post.publishedAt,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
   }
 }
 

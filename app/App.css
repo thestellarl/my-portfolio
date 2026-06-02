@@ -39,7 +39,11 @@
   background: transparent;
 }
 
-body {
+/* Scope to the landing page only. This stylesheet is imported by the Landing
+   client component, which makes its rules global and persistent across
+   client-side navigation. Without :has(.App) the body lock leaks onto blog
+   pages after navigating away from home, breaking scroll until a hard refresh. */
+body:has(.App) {
   overflow-y: hidden;
   font-family: "BeVietnam-Regular";
 }

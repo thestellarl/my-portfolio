@@ -14,8 +14,22 @@ type PostListItem = {
   coverImage?: SanityImageSource & { alt?: string }
 }
 
+const blogDescription = 'Notes, projects, and the occasional deep dive.'
+
 export const metadata = {
   title: 'Blog',
+  description: blogDescription,
+  openGraph: {
+    title: 'Blog',
+    description: blogDescription,
+    type: 'website',
+    url: '/blog',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog',
+    description: blogDescription,
+  },
 }
 
 function formatDate(iso: string) {

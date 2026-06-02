@@ -33,6 +33,7 @@ export const postBySlugQuery = groq`
     publishedAt,
     excerpt,
     coverImage,
+    seo,
     body
   }
 `
