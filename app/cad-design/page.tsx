@@ -29,7 +29,7 @@ const Page = () => {
         "A custom mount for a GoPro Hero 8 that allows for easy mounting and removal from a FPV drone. Printed in TPU for durability and vibration dampening.",
     },
     {
-      src: "base_3.stl",
+      src: "base_3.STL",
       title: "LED Lamp internals",
       description:
         "Custom designed support for a WS2812b powered lamp. Designed priorities were cooling and printing efficiency.",
@@ -67,12 +67,12 @@ const Page = () => {
             return (
               <div
                 key={src}
-                className="project-card group flex w-full flex-col items-center overflow-hidden rounded-2xl bg-color3 text-white shadow-lg shadow-color3/20 transition-shadow hover:shadow-xl md:flex-row md:text-left"
+                className="project-card group flex w-full flex-col items-center gap-4 overflow-hidden rounded-2xl bg-color3 p-4 text-white shadow-lg shadow-color3/20 transition-shadow hover:shadow-xl sm:gap-6 sm:p-6 md:flex-row md:text-left"
               >
-                <div className="flex w-full shrink-0 justify-center md:w-80">
+                <div className="w-full max-w-xs shrink-0 overflow-hidden rounded-xl md:w-80 md:max-w-none">
                   <TinyViewport modelSrc={src} />
                 </div>
-                <div className="w-full px-6 py-8 sm:px-8">
+                <div className="w-full px-2 sm:px-4">
                   <h2 className="mb-3 text-2xl font-bold transition-all group-hover:tracking-widest sm:mb-4 sm:text-3xl">
                     {title}
                   </h2>
