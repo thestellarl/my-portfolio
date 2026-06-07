@@ -48,31 +48,39 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex flex-row flex-wrap justify-evenly w-full h-full py-24 gap-4">
+    <div className="w-full min-h-screen py-16 sm:py-24 px-4 sm:px-6">
       <section
         id="scroll-section"
-        className="relative flex flex-col w-screen items-center"
+        className="relative mx-auto flex w-full max-w-screen-xl flex-col"
       >
-        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse [&>*:nth-child(even)]:text-right flex flex-col gap-y-14">
-          <a className="text-color3 flex items-center" href="./">
-            <i className="bi bi-arrow-left-square text-5xl"></i>
-            <h1 className="text-xl ml-4 font-[400]">Home</h1>
-          </a>
+        <a
+          className="group mb-10 flex w-fit items-center text-color3 sm:mb-14"
+          href="./"
+        >
+          <i className="bi bi-arrow-left-square text-4xl transition-transform group-hover:-translate-x-1 sm:text-5xl"></i>
+          <h1 className="ml-3 text-lg font-[400] sm:ml-4 sm:text-xl">Home</h1>
+        </a>
+
+        <div className="flex flex-col gap-8 text-center sm:gap-14 md:[&>*:nth-child(even)]:flex-row-reverse md:[&>*:nth-child(even)]:text-right">
           {modelArray.map((modelObject) => {
             const { src, title, description } = modelObject;
             return (
               <div
                 key={src}
-                className="flex w-full items-center project-card overflow-hidden bg-color3 text-white"
+                className="project-card group flex w-full flex-col items-center overflow-hidden rounded-2xl bg-color3 text-white shadow-lg shadow-color3/20 transition-shadow hover:shadow-xl md:flex-row md:text-left"
               >
-                <TinyViewport modelSrc={src} />
-                <div className="relative h-full">
-                  <div className="px-6 py-8">
-                    <h1 className="text-3xl font-bold mb-4 group-hover:tracking-widest transition-all">
-                      {title}
-                    </h1>
-                    <p>{description}</p>
-                  </div>
+                <div className="flex w-full shrink-0 justify-center md:w-80">
+                  <TinyViewport modelSrc={src} />
+                </div>
+                <div className="w-full px-6 py-8 sm:px-8">
+                  <h2 className="mb-3 text-2xl font-bold transition-all group-hover:tracking-widest sm:mb-4 sm:text-3xl">
+                    {title}
+                  </h2>
+                  {description && (
+                    <p className="text-sm leading-relaxed text-white/80 sm:text-base">
+                      {description}
+                    </p>
+                  )}
                 </div>
               </div>
             );
