@@ -37,15 +37,27 @@ function Landing({ blogCallout }: LandingProps): React.ReactNode {
       onMouseEnter={() => setGradientVisible(true)}
       onMouseLeave={() => setGradientVisible(false)}
     >
-      <div className="social-links absolute flex space-x-8 bottom-6 z-10 max-w-screen-xl md:px-12 left-8 md:left-12 md:bottom-12 lg:left-24 mx-auto">
+      <div
+        className="social-links fixed right-3 top-3 z-50 flex items-center gap-4 rounded-full bg-color3 px-4 py-2.5 shadow-lg ring-1 ring-black/10 fill-light1
+                   md:absolute md:right-auto md:top-auto md:bottom-12 md:left-12 md:z-10 md:mx-auto md:max-w-screen-xl md:gap-8 md:rounded-none md:bg-transparent md:px-12 md:py-0 md:shadow-none md:ring-0
+                   lg:left-24"
+      >
         <a
-          className=""
+          aria-label="Lucas Stella on LinkedIn"
+          className="flex items-center justify-center rounded-full transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-light1 focus-visible:ring-offset-2 focus-visible:ring-offset-color3 md:focus-visible:ring-offset-transparent"
           target="_blank"
+          rel="noopener noreferrer"
           href="https://www.linkedin.com/in/lucas-stella-28700615a/"
         >
           <LinkedInIcon dim={36} />
         </a>
-        <a className="" target="_blank" href="https://github.com/thestellarl">
+        <a
+          aria-label="Lucas Stella on GitHub"
+          className="flex items-center justify-center rounded-full transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-light1 focus-visible:ring-offset-2 focus-visible:ring-offset-color3 md:focus-visible:ring-offset-transparent"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/thestellarl"
+        >
           <GithubIcon dim={36} />
         </a>
       </div>
