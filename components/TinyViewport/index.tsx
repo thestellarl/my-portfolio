@@ -20,11 +20,25 @@ const TinyViewport = ({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const container = ref.current;
+    if (container === null) return;
 
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(width, height);
+    // Size the renderer to the actual rendered container so the viewport can
+    // shrink responsively on mobile. Fall back to the props before layout.
+    let viewWidth = container.clientWidth || width;
+    let viewHeight = container.clientHeight || height;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      viewWidth / viewHeight,
+      0.1,
+      1000
+    );
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(viewWidth, viewHeight);
     renderer.shadowMap.enabled = true;
     scene.background = new THREE.Color("#CFDBD5");
     scene.fog = new THREE.Fog("#CFDBD5", 10, 50);
@@ -52,10 +66,9 @@ const TinyViewport = ({
     mesh.receiveShadow = true;
     scene.add(mesh);
 
-    if (ref.current !== null) {
-      ref.current.appendChild(renderer.domElement);
-    }
-    const controls = new OrbitControls(camera, ref.current as HTMLElement);
+    container.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
     controls.autoRotate = true;
     controls.autoRotateSpeed = 1;
     controls.enableDamping = true;
@@ -101,25 +114,54 @@ const TinyViewport = ({
 
     camera.position.set(0, 400, 30);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    // Keep the camera and renderer in sync with the container size so the
+    // model stays centred and undistorted as the layout reflows.
+    const resizeObserver = new ResizeObserver(() => {
+      viewWidth = container.clientWidth;
+      viewHeight = container.clientHeight;
+      if (viewWidth === 0 || viewHeight === 0) return;
+      camera.aspect = viewWidth / viewHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(viewWidth, viewHeight);
+    });
+    resizeObserver.observe(container);
+
+    let frameId = 0;
     function animate() {
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
       renderer.render(scene, camera);
       controls.update();
     }
     animate();
+
     return () => {
-      ref.current?.removeChild(renderer.domElement);
+      cancelAnimationFrame(frameId);
+      resizeObserver.disconnect();
+      controls.dispose();
+      renderer.dispose();
+      if (renderer.domElement.parentNode === container) {
+        container.removeChild(renderer.domElement);
+      }
     };
-  }, [ref]);
+  }, [modelSrc, width, height]);
+
   return <Wrapper ref={ref} $height={height} $width={width} />;
 };
 
 const Wrapper = styled.div<{ $width: number; $height: number }>`
-  width: ${({ $width }) => $width}px;
-  height: ${({ $height }) => $height}px;
-  background: lightblue;
+  width: 100%;
+  max-width: ${({ $width }) => $width}px;
+  aspect-ratio: ${({ $width, $height }) => `${$width} / ${$height}`};
+  background: #cfdbd5;
   overflow: hidden;
   transition: transform 0.2s ease-in-out;
+
+  & canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
 `;
 
 export default TinyViewport;

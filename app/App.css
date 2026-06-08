@@ -235,11 +235,16 @@ body:has(.App) {
   scroll-timeline-name: --heroTimeline;
 }
 
-.social-links {
-  animation: colorShift;
-  animation-timeline: --heroTimeline;
-  animation-range: cover 0% cover 10%;
-  animation-fill-mode: forwards;
+/* The scroll-driven fill shift only makes sense for the desktop bottom-left
+   placement. On mobile the icons live in a solid pill (top-right) and keep a
+   fixed high-contrast fill instead. */
+@media (min-width: 768px) {
+  .social-links {
+    animation: colorShift;
+    animation-timeline: --heroTimeline;
+    animation-range: cover 0% cover 10%;
+    animation-fill-mode: forwards;
+  }
 }
 
 #output pre,
