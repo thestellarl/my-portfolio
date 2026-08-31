@@ -40,7 +40,7 @@ const LandingScreen = () => {
   };
 
   return (
-    <Container className="font-sans select-none sm:text-2xl lg:text-7xl xl:text-7xl">
+    <Container className="select-none sm:text-2xl lg:text-7xl xl:text-7xl">
       {/* Invisible sizer fixes the container width to the longest line; the
           visible text+cursor overlay it so the cursor never shifts. */}
       <Sizer aria-hidden="true">{`Hi I'm ${longestText}`}</Sizer>
@@ -58,6 +58,7 @@ const Container = styled.div`
   position: relative;
   display: inline-block;
   align-items: center;
+  font-family: var(--font-display), monospace;
 `;
 
 const Sizer = styled.span`

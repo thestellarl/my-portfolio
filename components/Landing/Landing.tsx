@@ -7,17 +7,11 @@ import { GithubIcon } from "../../icons/GithubIcon";
 import Footer from "@/components/Footer";
 import LandingScreen from "@/components/Hero";
 import ExperienceCard from "@/components/ExperienceCard";
+import { experiences } from "@/data/experience";
+import { projects } from "@/data/projects";
+import { cadCallout } from "@/data/cad";
+import { CadCallout } from "@/components/CadCallout";
 import { ProjectCard } from "@/components/ProjectCard";
-const TinyViewport = dynamic(() => import("@/components/TinyViewport"));
-import {
-  cs446_final,
-  drone,
-  firewatch_sc,
-  light_bar,
-  recipro,
-  shopstack,
-} from "@/public/images";
-import dynamic from "next/dynamic";
 
 interface LandingProps {
   blogCallout?: React.ReactNode;
@@ -62,7 +56,10 @@ function Landing({ blogCallout }: LandingProps): React.ReactNode {
         </a>
       </div>
       <section className="bg-color1 relative flex items-center justify-center h-screen w-screen whitespace-nowrap">
-        <div className="absolute right-0 invisible lg:!visible bg-color3 rounded-lg p-20">
+        <div
+          aria-hidden="true"
+          className="code-watermark absolute inset-y-0 right-0 hidden lg:flex items-center justify-end pr-12 pointer-events-none select-none"
+        >
           <Footer />
         </div>
         <div className="flex flex-col name-card glass absolute left-0 py-8 justify-center">
@@ -84,99 +81,46 @@ function Landing({ blogCallout }: LandingProps): React.ReactNode {
       <section className="flex items-center justify-center w-screen relative">
         <div className="max-w-screen-xl w-full md:px-12 md:py-20 lg:px-24 mx-auto">
           <div className="lg:flex lg:justify-between lg:gap-4">
-            <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
-              <div>
-                <h1 className="text-4xl font-bold tracking-tight text-color3 sm:text-5xl pt-8 md:pt-0">
+            <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-5/12 lg:flex-col lg:justify-center lg:py-24">
+              <div className="text-left px-5 md:px-0">
+                <p
+                  className="text-color2 text-xl mb-2 leading-tight"
+                  style={{ fontFamily: "var(--font-terminal)" }}
+                >
+                  <span className="inline-block">lucas@lstella.dev</span>
+                  <span className="inline-block">:~/experience$</span>
+                </p>
+                <h1 className="text-4xl font-bold tracking-tight text-color3 sm:text-5xl">
                   <a href="/">Lucas Stella</a>
                 </h1>
+                <h2 className="mt-3 text-lg font-medium text-color3">
+                  Senior Test Automation Engineer · Becton Dickinson
+                </h2>
+                <p className="mt-4 max-w-sm leading-normal text-color3/80">
+                  I build the tools that make software teams faster — test
+                  frameworks, developer tooling, and the automation that ties
+                  them together. Currently working in TypeScript and Playwright
+                  from Portland, OR.
+                </p>
+                <a
+                  className="mt-6 inline-block font-medium text-color2 underline underline-offset-4 hover:text-color3"
+                  href="mailto:lucas@lstella.dev"
+                >
+                  lucas@lstella.dev
+                </a>
               </div>
             </header>
-            <div className="pt-24 lg:w-1/2 lg:py-24 text-color3 px-5 experience-container">
+            <div className="pt-24 lg:w-7/12 lg:py-24 text-color3 px-5 experience-container">
               <section>
                 <ol className="group/list">
-                  <li className="mb-12">
-                    <ExperienceCard
-                      startDate="2024"
-                      endDate="present"
-                      company="Becton Dickinson"
-                      position="Senior Test Automation Engineer"
-                      description="Optimized testing efficiency, playing a key role in reducing test duration by
-                      50% through strategic improvements. Refactored substantial portions of the Page Object Model
-                      (POM) code, leveraging advanced typing strategies in TypeScript to improve code quality and maintainability.
-                      Utilized TypeScript in a behavior-driven design testing approach, employing Gherkin,
-                      Cucumber-JS, and Playwright frameworks"
-                      technologies={[
-                        "React",
-                        "TypeScript",
-                        "C++",
-                        "Agile Development",
-                        "CI/CD",
-                      ]}
-                      location="Ashland, OR"
-                      link="https://www.flowjo.com/"
-                    />
-                  </li>
-                  <li className="mb-12">
-                    <ExperienceCard
-                      startDate="2021"
-                      endDate="2024"
-                      company="Intel"
-                      position="Development Tools Engineer"
-                      description="Design and implement engineering tools to support the next generation
-                      of IPU's in collaboration with a team of developers. Contributed to a
-                      critical evaluation and revamp of team workflow while working with
-                      stakeholders to build, deliver, and test features."
-                      technologies={[
-                        "React",
-                        "TypeScript",
-                        "C++",
-                        "Agile Development",
-                        "CI/CD",
-                      ]}
-                      link="https://www.intel.com/"
-                      location="Hillsboro, OR"
-                    />
-                  </li>
-                  <li className="mb-12">
-                    <ExperienceCard
-                      startDate="June 2019"
-                      endDate="September 2020"
-                      company="Becton Dickinson"
-                      position="Software Engineering Intern"
-                      description="Collaborated with designers to build a unified front-end component library for an upcoming biomedical research tool.
-                      Engineered legacy project file support for an existing application.
-                      Contributed with developers to extend unit test coverage."
-                      technologies={[
-                        "React",
-                        "TypeScript",
-                        "Jest Testing",
-                        "UI/UX Design",
-                      ]}
-                      link="https://www.flowjo.com/"
-                      location="Ashland, OR"
-                    />
-                  </li>
-                  <li className="mb-12">
-                    <ExperienceCard
-                      startDate="September 2020"
-                      endDate="June 2021"
-                      company="Collin’s Aerospace"
-                      position="Capstone Team Lead"
-                      description="Lead a capstone project team in collaboration with Collin's Aerospace, through the development of a drone based system
-                      to provide real time wildfire data to airborne firefighting efforts. Designed, architected and implemented a low-cost scalable
-                      backend on AWS, user-facing frontend, and a GPU compute powered application for hotspot localization."
-                      technologies={[
-                        "Parallel Programming",
-                        "ROS",
-                        "C++",
-                        "React",
-                        "TypeScript",
-                        "AWS",
-                      ]}
-                      link="https://www.collinsaerospace.com/"
-                      location="Corvallis, OR"
-                    />
-                  </li>
+                  {experiences.map((experience) => (
+                    <li
+                      className="mb-16 lg:mb-20"
+                      key={`${experience.company}-${experience.startDate}`}
+                    >
+                      <ExperienceCard {...experience} />
+                    </li>
+                  ))}
                 </ol>
               </section>
             </div>
@@ -185,77 +129,52 @@ function Landing({ blogCallout }: LandingProps): React.ReactNode {
       </section>
 
       <section
-        id="scroll-section"
-        className="relative flex flex-col w-screen items-center pb-32 shadow"
+        id="projects"
+        className="relative flex flex-col w-screen items-center pb-32"
+        aria-labelledby="projects-heading"
       >
-        <div className="max-w-screen-xl w-full text-left md:[&>*:nth-child(even)]:flex-row-reverse md:[&>*:nth-child(even)]:text-right flex flex-col gap-y-9 px-5">
-          <ProjectCard
-            title="FireWatch Aerial Guardian"
-            description="Lead a capstone project team in collaboration with Collin's Aerospace, through the development
-                  of a drone based system to provide real time wildfire data to airborne firefighting efforts. Designed, architected
-                  and implemented a low-cost scalable backend on AWS, user-facing frontend, and a GPU compute powered application
-                  for hotspot localization."
-            href="https://eecs.oregonstate.edu/project-showcase/projects/?id=HhhD4OZfTfbfwfKg"
-            image={firewatch_sc}
+        <div className="max-w-screen-xl w-full px-5 md:px-12 lg:px-24">
+          <hr
+            className="mb-10 border-0 border-t border-dashed border-color3/25"
+            aria-hidden="true"
           />
-
-          <ProjectCard
-            title="ShopStack"
-            href="https://github.com/picodase/cs446_final"
-            image={shopstack}
-            description="Designed and developed a robust system for real-time logging of serial traffic data from industrial machinery,
-                          as well as an intuitive point-of-capture user interface. The system has since processed over 50,000 square feet of flooring production data,
-                          delivering substantial operational cost reductions that have resulted in thousands of dollars in savings for the business."
-          />
-
-          <ProjectCard
-            title="Hemoglobin Interaction Network Analysis"
-            description="Analyzed the features of residue interaction networks from several homologous hemoglobin protein structures to determine relatedness"
-            href="https://github.com/picodase/cs446_final"
-            image={cs446_final}
-          />
-
-          <ProjectCard
-            title="Recipro"
-            description="Recipe hosting website built to create, share, and combine recipes. Built using Node and SQL technologies."
-            href="https://github.com/lpstella/recipro"
-            image={recipro}
-          />
-
-          <ProjectCard
-            title="Drone Videography"
-            description="I've been flying drones for over 7 years, and have experience with both DJI and FPV drones. I've worked to capture the feeling of weightlessness through freestyle and cinematic flying."
-            href="https://www.instagram.com/p/CEXPzvzp5P_/"
-            image={drone}
-          />
-
-          <ProjectCard
-            title="2018 UW Undergrad Design Award"
-            description="I designed and built a smartphone controlled LED display utilizing the ESP8266 that featured CAD designed parts, 3d printed, laser cut, and vacuum formed components.
-              The project was submitted to the 2018 Maker Summit hosted at the University of Washington."
-            image={light_bar}
-          />
+          <h2
+            id="projects-heading"
+            className="text-color2 text-xl mb-6 leading-tight text-left"
+            style={{ fontFamily: "var(--font-terminal)" }}
+          >
+            <span className="inline-block">lucas@lstella.dev</span>
+            <span className="inline-block">:~/projects$</span>
+          </h2>
+          <ol className="flex flex-col gap-y-8">
+            {projects.map((project, index) => (
+              <li key={project.title}>
+                <ProjectCard {...project} reverse={index % 2 === 1} />
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section
-        id="scroll-section"
-        className="relative flex w-screen items-center pb-32 shadow py-24 justify-center flex-col md:flex-row"
+        id="cad"
+        className="relative flex flex-col w-screen items-center pb-32"
+        aria-labelledby="cad-heading"
       >
-        <div className="pointer-events-none sm:pointer-events-auto">
-          <TinyViewport
-            width={600}
-            height={600}
-            modelSrc={"enclosureLid.STL"}
+        <div className="max-w-screen-xl w-full px-5 md:px-12 lg:px-24">
+          <hr
+            className="mb-10 border-0 border-t border-dashed border-color3/25"
+            aria-hidden="true"
           />
-        </div>
-        <div className="px-6 py-8 text-color3">
-          <a href="/cad-design">
-            <span className="text-3xl font-bold underline">
-              Checkout some of my CAD work{" "}
-              <i className="bi bi-arrow-right text-2xl inline"></i>
-            </span>
-          </a>
+          <h2
+            id="cad-heading"
+            className="text-color2 text-xl mb-6 leading-tight text-left"
+            style={{ fontFamily: "var(--font-terminal)" }}
+          >
+            <span className="inline-block">lucas@lstella.dev</span>
+            <span className="inline-block">:~/cad$</span>
+          </h2>
+          <CadCallout {...cadCallout} />
         </div>
       </section>
     </div>

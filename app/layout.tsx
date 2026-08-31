@@ -1,10 +1,20 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, VT323, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
+const vt323 = VT323({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-terminal",
+});
+const shareTechMono = Share_Tech_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-display",
+});
 
 export const metadata = {
   title: "Portfolio - Lucas Stella",
@@ -25,7 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-background`}>
+      <body
+        className={`${inter.className} ${vt323.variable} ${shareTechMono.variable} min-h-screen bg-background`}
+      >
         {children}
         <Analytics />
       </body>
