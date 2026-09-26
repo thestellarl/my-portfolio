@@ -21,15 +21,15 @@
     "@next/bundle-analyzer": "^16.1.6",
     "@next/third-parties": "^16.2.6",
     "@sanity/image-url": "^2.1.1",
-    "@sanity/vision": "^5.27.0",
+    "@sanity/vision": "^6.15.0",
     "@vercel/analytics": "^1.1.1",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.2",
     "next": "^16.3.4",
-    "next-sanity": "^12.4.5",
+    "next-sanity": "^13.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^5.27.0",
+    "sanity": "^6.15.0",
     "three": "^0.159.0"
   },
   "devDependencies": {
